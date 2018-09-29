@@ -20,7 +20,39 @@
             Experiment with complex image processing operations in your browser.
       </h4>
 
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="load-image-url">
+            Load image from URL
+      </button>
+
       <canvas></canvas>
+
+      <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+      </div>
+
+      <dialog class="mdl-dialog" id="load-image-url">
+            <h4 class="mdl-dialog__title">Load Image From URL</h4>
+            <div class="mdl-dialog__content">
+                  <p>
+                        Enter an image URL below to load an image. Note that not all websites will allow this. Try Imgur.
+                  </p>
+                  <form action="#">
+                        <div class="mdl-textfield mdl-js-textfield">
+                              <input class="mdl-textfield__input" type="text" id="sample1">
+                              <label class="mdl-textfield__label" for="sample1"></label>
+                        </div>
+                  </form>
+            </div>
+            <div class="mdl-dialog__actions">
+                  <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect confirm">
+                        Load Image
+                  </button>
+                  <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        Cancel
+                  </button>
+            </div>
+      </dialog>
 
       <script defer src="jquery-3.3.1.min.js"></script>
       <script defer src="mdl/material.js"></script>
