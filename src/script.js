@@ -125,9 +125,9 @@ const convolute = function(image, kernel) {
       var processed_data = JSON.parse(JSON.stringify(canvas_data));
 
       // Current pixel x
-      for (var a = 0; a < canvas_data.length - kernel.kernel.length; a++) {
+      for (var a = 0; a < canvas_data.length; a++) {
             // Current pixel y
-            for (var g = 0; g < canvas_data[a].length - kernel.kernel[0].length; g++) {
+            for (var g = 0; g < canvas_data[a].length; g++) {
                   // Current color channel
                   for (var e = 0; e < 4; e++) {
                         processed_data[a][g][e] = 0;
