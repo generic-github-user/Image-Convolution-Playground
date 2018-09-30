@@ -45,8 +45,10 @@ for (var j = 0; j < kernels.length; j++) {
 }
 componentHandler.upgradeDom("mdl-menu");
 const set_filter = function(kernel_id) {
-      $("button#select-filter").text(kernels[kernel_id].name);
-      convolute(kernels[kernel_id]);
+      $("button#select-filter").html(kernels[kernel_id].name + '<i class="material-icons">arrow_drop_down</i>');
+      var canvas_data = context.getImageData(0, 0, canvas.width, canvas.height);
+      var processed_data = convolute(canvas_data, kernels[kernel_id]);
+      context.putImageData(processed_data, 0, 0);
 }
 
 const load_image = function(url, callback) {
@@ -102,10 +104,9 @@ const spread = function(image_data, width, height, channels) {
       return spread_data;
 }
 
-const convolute = function(kernel) {
-      var canvas_data = context.getImageData(0, 0, canvas.width, canvas.height);
+const convolute = function(image, kernel) {
       // var processed_data = new Uint8ClampedArray(canvas_data.data.length);
-      canvas_data = spread(canvas_data.data, canvas.width, canvas.height, 4);
+      canvas_data = spread(image.data, canvas.width, canvas.height, 4);
       var processed_data = JSON.parse(JSON.stringify(canvas_data));
 
       // Current pixel x
@@ -142,8 +143,8 @@ const convolute = function(kernel) {
       }
       processed_data = new Uint8ClampedArray(processed_data.flat().flat());
       processed_data = new ImageData(processed_data, canvas.width, canvas.height);
-      context.putImageData(processed_data, 0, 0);
+      return processed_data;
 }
 
 var image = images[Math.floor(Math.random() * images.length)];
-load_image(image, () => convolute(kernels[1]));
+load_image(image, () => set_filter(1));
