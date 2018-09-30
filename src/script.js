@@ -15,36 +15,39 @@ const find_anchor = function(kernel) {
       return anchor;
 }
 
-var kernels = {
-      "identity": {
+var kernels = [{
+            "name": "Identity",
             "kernel": [
                   [0, 0, 0],
                   [0, 1, 0],
                   [0, 0, 0]
             ]
       },
-      "sharpen": {
+      {
+            "name": "Sharpen",
             "kernel": [
                   [0, -1, 0],
                   [-1, 5, -1],
                   [0, -1, 0]
             ]
       },
-      "custom": {
+      {
+            "name": "Custom",
             "kernel": [
                   [0, 0, 0],
                   [0, 1, 0],
                   [0, 0, 0]
             ]
       }
-};
-Object.keys(kernels).forEach(
-      (name) => {
-            if (!kernels[name].anchor) {
-                  kernels[name].anchor = find_anchor(kernels[name]);
+];
+
+kernels.forEach(
+      (kernel) => {
+            if (!kernel.anchor) {
+                  kernel.anchor = find_anchor(kernel);
             }
-            if (!kernels[name].factor) {
-                  kernels[name].factor = 1;
+            if (!kernel.factor) {
+                  kernel.factor = 1;
             }
       }
 );
@@ -139,5 +142,3 @@ const convolute = function(kernel) {
       processed_data = new ImageData(processed_data, canvas.width, canvas.height);
       context.putImageData(processed_data, 0, 0);
 }
-
-convolute(kernels.custom);
