@@ -69,14 +69,6 @@ $("dialog#load-image-url .confirm").click(() => {
       snackbarContainer[0].MaterialSnackbar.showSnackbar(data);
 });
 
-const get_pixel = function(data, width, channels, x, y) {
-      var pixel = [];
-      for (var d = 0; d < channels; d++) {
-            pixel.push(data[(y * width * channels) + (x * channels) + d]);
-      }
-      return pixel;
-}
-
 const spread = function(image_data, width, height, channels) {
       var spread_data = [];
       for (var h = 0; h < height; h++) {
