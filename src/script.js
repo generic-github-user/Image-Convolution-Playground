@@ -32,6 +32,35 @@ var kernels = [{
             ]
       },
       {
+            "name": "Box blur",
+            "factor": 1 / 9,
+            "kernel": [
+                  [1, 1, 1],
+                  [1, 1, 1],
+                  [1, 1, 1]
+            ]
+      },
+      {
+            "name": "Gaussian blur (3 by 3)",
+            "factor": 1 / 16,
+            "kernel": [
+                  [1, 2, 1],
+                  [2, 4, 2],
+                  [1, 2, 1]
+            ]
+      },
+      {
+            "name": "Gaussian blur (5 by 5)",
+            "factor": 1 / 256,
+            "kernel": [
+                  [1, 4, 6, 4, 1],
+                  [4, 16, 24, 16, 4],
+                  [6, 24, 36, 24, 6],
+                  [4, 16, 24, 16, 4],
+                  [1, 4, 6, 4, 1]
+            ]
+      },
+      {
             "name": "Custom",
             "kernel": [
                   [0, 0, 0],
@@ -43,11 +72,11 @@ var kernels = [{
 
 kernels.forEach(
       (kernel) => {
-            if (!kernel.anchor) {
-                  kernel.anchor = find_anchor(kernel);
-            }
             if (!kernel.factor) {
                   kernel.factor = 1;
+            }
+            if (!kernel.anchor) {
+                  kernel.anchor = find_anchor(kernel);
             }
       }
 );
