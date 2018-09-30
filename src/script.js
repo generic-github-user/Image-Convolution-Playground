@@ -1,7 +1,14 @@
-const canvas = $("canvas")[0];
-canvas.width = window.innerWidth / 4;
-canvas.height = window.innerHeight / 4;
-const context = canvas.getContext("2d");
+const input_canvas = $("canvas#input")[0];
+const output_canvas = $("canvas#output")[0];
+input_canvas.width = window.innerWidth / 4;
+input_canvas.height = window.innerHeight / 4;
+output_canvas.width = window.innerWidth / 4;
+output_canvas.height = window.innerHeight / 4;
+const input_context = input_canvas.getContext("2d");
+const output_context = output_canvas.getContext("2d");
+
+const canvas_width = input_canvas.width;
+const canvas_height = input_canvas.height;
 
 // Sample images to load by default when the program is opened
 var images = [
@@ -26,7 +33,7 @@ const find_anchor = function(kernel) {
 
 var saved_canvas;
 var undo = function(event) {
-      context.putImageData(saved_canvas, 0, 0);
+      input_context.putImageData(saved_canvas, 0, 0);
 };
 const display_snackbar = function(message) {
       var data = {
@@ -91,23 +98,23 @@ const set_filter = function(kernel_id) {
       // Update filter select dropdown button to display name of current filter
       $("button#select-filter").html(kernels[kernel_id].name + '<i class="material-icons">arrow_drop_down</i>');
       // Get image data from canvas
-      var canvas_data = context.getImageData(0, 0, canvas.width, canvas.height);
+      var canvas_data = input_context.getImageData(0, 0, canvas_width, canvas_height);
       // Run convolution operation on image data from canvas with given kernel
       var processed_data = convolute(canvas_data, kernels[kernel_id]);
       // Draw processed image data to canvas
-      context.putImageData(processed_data, 0, 0);
+      output_context.putImageData(processed_data, 0, 0);
 }
 
 // Load an image into memory using a URL and draw it to the canvas
 const load_image = function(url, callback) {
       // Store canvas data in saved_canvas in case the user undoes the image load operation
-      saved_canvas = context.getImageData(0, 0, canvas.width, canvas.height);
+      saved_canvas = input_context.getImageData(0, 0, canvas_width, canvas_height);
       // Create a new image object
       var image = new Image();
       // Set onload function for image to execute once the image has loaded
       image.onload = function() {
             // Draw image to canvas
-            context.drawImage(image, 0, 0);
+            input_context.drawImage(image, 0, 0);
             // Execute callback function
             callback();
       };
@@ -155,7 +162,7 @@ const spread = function(image_data, width, height, channels) {
 
 const convolute = function(image, kernel) {
       // var processed_data = new Uint8ClampedArray(canvas_data.data.length);
-      canvas_data = spread(image.data, canvas.width, canvas.height, 4);
+      canvas_data = spread(image.data, canvas_width, canvas_height, 4);
       var processed_data = JSON.parse(JSON.stringify(canvas_data));
 
       // Current pixel x
@@ -191,7 +198,7 @@ const convolute = function(image, kernel) {
             }
       }
       processed_data = new Uint8ClampedArray(processed_data.flat().flat());
-      processed_data = new ImageData(processed_data, canvas.width, canvas.height);
+      processed_data = new ImageData(processed_data, canvas_width, canvas_height);
       return processed_data;
 }
 
