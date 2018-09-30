@@ -1,14 +1,13 @@
 const input_canvas = $("canvas#input")[0];
 const output_canvas = $("canvas#output")[0];
-input_canvas.width = window.innerWidth / 4;
-input_canvas.height = window.innerHeight / 4;
-output_canvas.width = window.innerWidth / 4;
-output_canvas.height = window.innerHeight / 4;
+const canvas_width = Math.round(window.innerWidth / 4);
+const canvas_height = Math.round(window.innerHeight / 4);
+input_canvas.width = canvas_width;
+input_canvas.height = canvas_height;
+output_canvas.width = canvas_width;
+output_canvas.height = canvas_height;
 const input_context = input_canvas.getContext("2d");
 const output_context = output_canvas.getContext("2d");
-
-const canvas_width = input_canvas.width;
-const canvas_height = input_canvas.height;
 
 // Sample images to load by default when the program is opened
 var images = [
