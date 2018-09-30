@@ -43,6 +43,9 @@ Object.keys(kernels).forEach(
             if (!kernels[name].anchor) {
                   kernels[name].anchor = find_anchor(kernels[name]);
             }
+            if (!kernels[name].factor) {
+                  kernels[name].factor = 1;
+            }
       }
 );
 
@@ -128,6 +131,7 @@ const convolute = function(kernel) {
                                     processed_data[a][g][e] += kernel.kernel[b][c] * pix;
                               }
                         }
+                        processed_data[a][g][e] *= kernel.factor;
                   }
             }
       }
