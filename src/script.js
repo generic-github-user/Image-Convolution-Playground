@@ -23,6 +23,21 @@ const find_anchor = function(kernel) {
       return anchor;
 }
 
+// Adapted from https://stackoverflow.com/a/22369599
+const read_file = function() {
+      var file = document.querySelector("input#load-image-upload").files[0]; //sames as here
+      var reader = new FileReader();
+
+      reader.onloadend = function() {
+            load_image(reader.result, () => set_filter(1));
+      }
+
+      if (file) {
+            // Read image data as a data URL
+            reader.readAsDataURL(file);
+      }
+}
+
 kernels.forEach(
       (kernel) => {
             if (!kernel.factor) {
