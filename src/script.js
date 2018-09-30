@@ -3,6 +3,14 @@ canvas.width = window.innerWidth / 4;
 canvas.height = window.innerHeight / 4;
 const context = canvas.getContext("2d");
 
+var images = [
+      "https://i.imgur.com/svViHqm.jpg",
+      "https://i.imgur.com/uAhjMNd.jpg",
+      "https://i.imgur.com/u5OUfBF.jpg",
+      "https://i.imgur.com/PT3Nh7B.jpg",
+      "https://i.imgur.com/EtXIdFP.jpg"
+];
+
 // const dialogs = {
 //
 // };
@@ -41,6 +49,15 @@ const set_filter = function(kernel_id) {
       convolute(kernels[kernel_id]);
 }
 
+const load_image = function(url, callback) {
+      var image = new Image();
+      image.onload = function() {
+            context.drawImage(image, 0, 0);
+            callback();
+      };
+      image.crossOrigin = "Anonymous";
+      image.src = url;
+}
 
 var canvas_data;
 var dialog = $("dialog#load-image-url")[0];
@@ -62,12 +79,7 @@ var snackbarContainer = $('#demo-snackbar-example');
 $("dialog#load-image-url .confirm").click(() => {
       canvas_data = context.getImageData(0, 0, canvas.width, canvas.height);
       var url = $("dialog#load-image-url input")[0].value;
-      var image = new Image();
-      image.onload = function() {
-            context.drawImage(image, 0, 0);
-      };
-      image.crossOrigin = "Anonymous";
-      image.src = url;
+      load_image(url);
 
       snackbarContainer[0].MaterialSnackbar.showSnackbar(data);
 });
@@ -132,3 +144,6 @@ const convolute = function(kernel) {
       processed_data = new ImageData(processed_data, canvas.width, canvas.height);
       context.putImageData(processed_data, 0, 0);
 }
+
+var image = images[Math.floor(Math.random() * images.length)];
+load_image(image, () => convolute(kernels[1]));
