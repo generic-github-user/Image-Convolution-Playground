@@ -3,6 +3,7 @@ canvas.width = window.innerWidth / 4;
 canvas.height = window.innerHeight / 4;
 const context = canvas.getContext("2d");
 
+// Sample images to load by default when the program is opened
 var images = [
       "https://i.imgur.com/svViHqm.jpg",
       "https://i.imgur.com/uAhjMNd.jpg",
@@ -59,42 +60,60 @@ const read_file = function() {
       }
 }
 
+// Prepare filter kernels for use in image convolution operations; fill in missing properties
 kernels.forEach(
       (kernel) => {
+            // If kernel factor does not exist, set it to 1
             if (!kernel.factor) {
                   kernel.factor = 1;
-            } else {
-                  kernel.factor = eval(kernel.factor);
             }
 
+            // If kernel anchor coordinates are not listed, calculate them
             if (!kernel.anchor) {
                   kernel.anchor = find_anchor(kernel);
             }
       }
 );
 
+// Loop through each kernel and add it to the dropdown menu
 for (var j = 0; j < kernels.length; j++) {
+      // Create new list item element
       var item = $("<li class='mdl-menu__item'></li>");
+      // Set name of list item to match kernel
       item.text(kernels[j].name);
+      // Set onclick function for list item
       item.attr("onclick", "set_filter(" + j + ")");
+      // Add list item to dropdown
       $("ul#kernels").append(item);
 }
-componentHandler.upgradeDom("mdl-menu");
+// Apply a filter kernel to the currently loadked image and display the result on the canvas
 const set_filter = function(kernel_id) {
+      // Update filter select dropdown button to display name of current filter
       $("button#select-filter").html(kernels[kernel_id].name + '<i class="material-icons">arrow_drop_down</i>');
+      // Get image data from canvas
       var canvas_data = context.getImageData(0, 0, canvas.width, canvas.height);
+      // Run convolution operation on image data from canvas with given kernel
       var processed_data = convolute(canvas_data, kernels[kernel_id]);
+      // Draw processed image data to canvas
       context.putImageData(processed_data, 0, 0);
 }
 
+// Load an image into memory using a URL and draw it to the canvas
 const load_image = function(url, callback) {
+      // Store canvas data in saved_canvas in case the user undoes the image load operation
       saved_canvas = context.getImageData(0, 0, canvas.width, canvas.height);
+      // Create a new image object
       var image = new Image();
+      // Set onload function for image to execute once the image has loaded
       image.onload = function() {
+            // Draw image to canvas
             context.drawImage(image, 0, 0);
+            // Execute callback function
             callback();
       };
+      // Set crossOrigin property of image object to "Anonymous" to allow loading images from other domains (when permitted)
       image.crossOrigin = "Anonymous";
+      // Set image source to url
       image.src = url;
 }
 
@@ -106,14 +125,23 @@ $("button#load-image-url").click(() => {
 });
 $("dialog#load-image-url button").click(() => dialog.close());
 
+// Spread 1D image vector to a 3D array given width, height, and number of color channels
 const spread = function(image_data, width, height, channels) {
+      // Create variable to store processed image data in
       var spread_data = [];
+      // Loop through each row (y) of image
       for (var h = 0; h < height; h++) {
+            // Create new array inside of main array to store color channels of pixel
             spread_data.push([]);
+            // Loop through each pixel (x) in row of image
             for (var i = 0; i < width; i++) {
-                  var index = (((h * width) + i) * channels);
+                  // Generate index of pixel in original image data array from x and y position of pixel, and width and color channels of image
+                  var index = ((h * width) + i) * channels;
+                  // Add pixel data to spread array
                   spread_data[h].push(
+                        // Convert data from Uint8ClampedArray to standard Array
                         Array.prototype.slice.call(
+                              // Slice color channels of pixel from main array using index value
                               image_data.slice(
                                     index, index + channels
                               )
@@ -121,6 +149,7 @@ const spread = function(image_data, width, height, channels) {
                   );
             }
       }
+      // Return 3D image data array
       return spread_data;
 }
 
