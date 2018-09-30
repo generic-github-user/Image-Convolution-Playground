@@ -20,7 +20,10 @@
             Experiment with complex image processing operations in your browser.
       </h4>
 
-      <input type="file" onchange="read_file()" id="load-image-upload"></input>
+      <input type="file" onchange="read_file();" id="load-image-upload">
+      <label for="load-image-upload" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="load-image-upload">
+            Upload Image
+      </label>
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="load-image-url">
             Load image from URL
       </button>
@@ -32,7 +35,7 @@
       </button>
       <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" id="kernels" for="select-filter"></ul>
 
-      <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
+      <div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
             <div class="mdl-snackbar__text"></div>
             <button class="mdl-snackbar__action" type="button"></button>
       </div>

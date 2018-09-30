@@ -6,3 +6,7 @@ canvas {
 dialog {
       width: 50% !important;
 }
+
+input#load-image-upload {
+      display: none
+}

@@ -23,12 +23,33 @@ const find_anchor = function(kernel) {
       return anchor;
 }
 
+var saved_canvas;
+var undo = function(event) {
+      context.putImageData(saved_canvas, 0, 0);
+};
+const display_snackbar = function(message) {
+      var data = {
+            "message": message,
+            "timeout": 5000,
+            "actionHandler": undo,
+            "actionText": "Undo"
+      };
+      var snackbarContainer = $("#snackbar");
+      snackbarContainer[0].MaterialSnackbar.showSnackbar(data);
+}
+$("dialog#load-image-url .confirm").click(() => {
+      var url = $("dialog#load-image-url input")[0].value;
+      load_image(url);
+      display_snackbar("Image loaded.");
+});
+
 // Adapted from https://stackoverflow.com/a/22369599
 const read_file = function() {
       var file = document.querySelector("input#load-image-upload").files[0]; //sames as here
       var reader = new FileReader();
 
       reader.onloadend = function() {
+            display_snackbar("Image uploaded: " + file.name);
             load_image(reader.result, () => set_filter(1));
       }
 
@@ -67,6 +88,7 @@ const set_filter = function(kernel_id) {
 }
 
 const load_image = function(url, callback) {
+      saved_canvas = context.getImageData(0, 0, canvas.width, canvas.height);
       var image = new Image();
       image.onload = function() {
             context.drawImage(image, 0, 0);
@@ -83,23 +105,6 @@ $("button#load-image-url").click(() => {
       dialog.showModal();
 });
 $("dialog#load-image-url button").click(() => dialog.close());
-var undo = function(event) {
-      context.putImageData(canvas_data, 0, 0);
-};
-var data = {
-      "message": "Image loaded.",
-      "timeout": 5000,
-      "actionHandler": undo,
-      "actionText": "Undo"
-};
-var snackbarContainer = $('#demo-snackbar-example');
-$("dialog#load-image-url .confirm").click(() => {
-      canvas_data = context.getImageData(0, 0, canvas.width, canvas.height);
-      var url = $("dialog#load-image-url input")[0].value;
-      load_image(url);
-
-      snackbarContainer[0].MaterialSnackbar.showSnackbar(data);
-});
 
 const spread = function(image_data, width, height, channels) {
       var spread_data = [];
