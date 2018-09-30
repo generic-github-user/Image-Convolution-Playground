@@ -29,6 +29,19 @@ kernels.forEach(
       }
 );
 
+for (var j = 0; j < kernels.length; j++) {
+      var item = $("<li class='mdl-menu__item'></li>");
+      item.text(kernels[j].name);
+      item.attr("onclick", "set_filter(" + j + ")");
+      $("ul#kernels").append(item);
+}
+componentHandler.upgradeDom("mdl-menu");
+const set_filter = function(kernel_id) {
+      $("button#select-filter").text(kernels[kernel_id].name);
+      convolute(kernels[kernel_id]);
+}
+
+
 var canvas_data;
 var dialog = $("dialog#load-image-url")[0];
 $("button#load-image-url").click(() => {
