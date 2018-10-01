@@ -18,10 +18,6 @@ var images = [
       "https://i.imgur.com/EtXIdFP.jpg"
 ];
 
-// const dialogs = {
-//
-// };
-
 const find_anchor = function(kernel) {
       var anchor = {
             "x": Math.floor(kernel.kernel[Math.floor(kernel.kernel.length / 2)].length / 2),
@@ -33,6 +29,7 @@ const find_anchor = function(kernel) {
 var saved_canvas;
 var undo = function(event) {
       input_context.putImageData(saved_canvas, 0, 0);
+      set_filter(1);
 };
 const display_snackbar = function(message) {
       var data = {
@@ -52,14 +49,20 @@ $("dialog#load-image-url .confirm").click(() => {
 
 // Adapted from https://stackoverflow.com/a/22369599
 const read_file = function() {
-      var file = document.querySelector("input#load-image-upload").files[0]; //sames as here
+      // Get file from file upload element
+      var file = $("input#load-image-upload")[0].files[0];
+      // Create new FileReader object
       var reader = new FileReader();
 
+      // Set function to execute when file has been read
       reader.onloadend = function() {
+            // Display image upload confirmation snackbar message
             display_snackbar("Image uploaded: " + file.name);
+            // Load image to canvas and apply convolutional filter
             load_image(reader.result, () => set_filter(1));
       }
 
+      // Check if a file has been uploaded
       if (file) {
             // Read image data as a data URL
             reader.readAsDataURL(file);
@@ -110,13 +113,6 @@ const load_image = function(url, callback) {
       saved_canvas = input_context.getImageData(0, 0, canvas_width, canvas_height);
       // Create a new image object
       var image = new Image();
-      // if (image.width / canvas_width > image.height / canvas_height) {
-      //       image.width *= canvas_width / image.width;
-      //       image.height *= canvas_width / image.width;
-      // } else {
-      //       image.width *= canvas_height / image.height;
-      //       image.height *= canvas_height / image.height;
-      // }
       // Set onload function for image to execute once the image has loaded
       image.onload = function() {
             // Draw image to canvas
@@ -167,8 +163,9 @@ const spread = function(image_data, width, height, channels) {
 }
 
 const convolute = function(image, kernel) {
-      // var processed_data = new Uint8ClampedArray(canvas_data.data.length);
+      // Convert 1-dimensional canvas pixel data array into a 3-dimensional array using spread()
       canvas_data = spread(image.data, canvas_width, canvas_height, 4);
+      // Create a new array, processed_data, as a clone of canvas_data to store output image
       var processed_data = JSON.parse(JSON.stringify(canvas_data));
 
       // Current pixel x
@@ -193,20 +190,28 @@ const convolute = function(image, kernel) {
                                     else {
                                           pix = canvas_data[x][y][e];
                                     }
+                                    // Calculate x coordinate of pixel relative to anchor pixel; original coordinate + filter kernel offset - relative kernel anchor position
                                     var x = a + b - kernel.anchor.x;
+                                    // Calculate y coordinate of pixel
                                     var y = g + c - kernel.anchor.y;
-                                    // Multiply pixel value by kernel value
+                                    // Multiply pixel value by kernel value, then add to anchor pixel value
                                     processed_data[a][g][e] += kernel.kernel[b][c] * pix;
                               }
                         }
+                        // Multiply pixel color channel by kernel factor
                         processed_data[a][g][e] *= kernel.factor;
                   }
             }
       }
+      // Flatted processed image data into a 1-dimensional array and convert to a Uint8ClampedArray so that it can be made into an ImageData object
       processed_data = new Uint8ClampedArray(processed_data.flat().flat());
+      // Create new ImageData object from processed image data
       processed_data = new ImageData(processed_data, canvas_width, canvas_height);
+      // Return filtered image data as ImageData object
       return processed_data;
 }
 
+// Select a random image from the list of demo images
 var image = images[Math.floor(Math.random() * images.length)];
+// Load random image and apply convolutional filter
 load_image(image, () => set_filter(1));
