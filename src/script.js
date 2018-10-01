@@ -110,10 +110,17 @@ const load_image = function(url, callback) {
       saved_canvas = input_context.getImageData(0, 0, canvas_width, canvas_height);
       // Create a new image object
       var image = new Image();
+      // if (image.width / canvas_width > image.height / canvas_height) {
+      //       image.width *= canvas_width / image.width;
+      //       image.height *= canvas_width / image.width;
+      // } else {
+      //       image.width *= canvas_height / image.height;
+      //       image.height *= canvas_height / image.height;
+      // }
       // Set onload function for image to execute once the image has loaded
       image.onload = function() {
             // Draw image to canvas
-            input_context.drawImage(image, 0, 0);
+            input_context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas_width, canvas_height);
             // Execute callback function
             callback();
       };
