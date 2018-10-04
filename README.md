@@ -7,3 +7,10 @@ Convolution is the process of multiplying an n-dimensional matrix of values agai
 ## Image Convolutions
 
 This interactive demo allows you to see how different convolution operations applied to images can be used to create effects such as blurring, sharpening, and edge detection.
+
+Check out [this awesome demo](http://setosa.io/ev/image-kernels/) by [Victor Powell](https://twitter.com/vicapow) to learn more about applying convolutions to images.
+
+## Other Notes
+
+Image used for early testing of program:
+https://i.imgur.com/vXiaCO3.jpg
