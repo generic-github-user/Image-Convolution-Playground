@@ -1,16 +1,28 @@
 const input_canvas = $("canvas#input")[0];
 const output_canvas = $("canvas#output")[0];
+// Default canvas width
 var canvas_width = 64;
+// Default canvas height
 var canvas_height = 64;
+// Set width of input canvas
 input_canvas.width = canvas_width;
+// Set height of input canvas
 input_canvas.height = canvas_height;
+// Set width of output canvas
 output_canvas.width = canvas_width;
+// Set height of output canvas
 output_canvas.height = canvas_height;
+// Get canvas context
 const input_context = input_canvas.getContext("2d");
 const output_context = output_canvas.getContext("2d");
 
+// URL of currently loaded image
 var image_url;
+// Current filter kernel to apply to image
+// Default filter is 1 (sharpen)
 var filter = 1;
+
+// Change resolution of images
 const input_resolution = function(func) {
       var resolution = $("input#resolution")[0].value;
       canvas_width = resolution;
@@ -40,10 +52,14 @@ const find_anchor = function(kernel) {
 }
 
 var saved_canvas;
+// Undo function for snackbar action button
 var undo = function(event) {
+      // Replace stored image onto canvas
       input_context.putImageData(saved_canvas, 0, 0);
+      // Apply current filter to image
       set_filter();
 };
+// Display a snackbar notification given a message string
 const display_snackbar = function(message) {
       var data = {
             "message": message,
@@ -110,8 +126,11 @@ for (var j = 0; j < kernels.length; j++) {
 }
 // Apply a filter kernel to the currently loadked image and display the result on the canvas
 const set_filter = function(kernel_id) {
+      // Check to see if a filter kernel ID has been provided
       if (kernel_id != undefined) {
+            // Set the filter to the provided filter kernel ID
             filter = kernel_id;
+            // If a filter was not provided, use the currently set kernel
       }
       // Update filter select dropdown button to display name of current filter
       $("button#select-filter").html(kernels[filter].name + '<i class="material-icons">arrow_drop_down</i>');
@@ -178,6 +197,7 @@ const spread = function(image_data, width, height, channels) {
       return spread_data;
 }
 
+// Apply convolution operation to image data given image and filter kernel
 const convolute = function(image, kernel) {
       // Convert 1-dimensional canvas pixel data array into a 3-dimensional array using spread()
       canvas_data = spread(image.data, canvas_width, canvas_height, 4);
