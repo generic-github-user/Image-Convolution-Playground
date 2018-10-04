@@ -4,6 +4,10 @@ var image_url = "";
 // Default filter is 1 (sharpen)
 var filter = 1;
 
+function map(num, in_min, in_max, out_min, out_max) {
+      return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 // Change resolution of images
 const input_resolution = function(func) {
       var resolution = $("input#resolution")[0].value;
@@ -124,6 +128,40 @@ const set_filter = function(kernel_id) {
             filter = kernel_id;
             // If a filter was not provided, use the currently set kernel
       }
+
+      $("#kernel-vis").empty();
+      for (var k = 0; k < kernels[filter].kernel.length; k++) {
+            var row = $("<div></div>");
+            row.addClass("row");
+            row.css("width", "100%");
+            row.css("height", Math.round((100 / kernels[filter].kernel.length) - 2) + "%");
+            for (var l = 0; l < kernels[filter].kernel[k].length; l++) {
+                  var kernel = kernels[filter].kernel;
+                  var weight = kernel[k][l];
+
+                  var block = $("<button>" + weight + "</button>");
+                  block.css("min-width", Math.round((100 / kernels[filter].kernel[k].length) - 2) + "%");
+                  block.css("height", "100%");
+
+                  var maxRow = kernel.map(function(row) {
+                        return Math.max.apply(Math, row);
+                  });
+                  var max = Math.max.apply(null, maxRow);
+
+                  var minRow = kernel.map(function(row) {
+                        return Math.min.apply(Math, row);
+                  });
+                  var min = Math.min.apply(null, maxRow);
+
+                  var saturation = map(weight, min, max, 25, 75);
+                  var color = "hsla(100, 100%, " + saturation + "%, 1)";
+                  block.css("background-color", color);
+                  block.addClass("block mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored");
+                  row.append(block);
+            }
+            $("#kernel-vis").append(row);
+      }
+
       // Update filter select dropdown button to display name of current filter
       $("button#select-filter").html(kernels[filter].name + '<i class="material-icons">arrow_drop_down</i>');
       // Get image data from canvas

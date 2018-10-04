@@ -10,3 +10,20 @@ dialog {
 input#load-image-upload {
       display: none
 }
+
+#kernel-vis {
+      width: 300px;
+      height: 300px;
+}
+
+#kernel-vis .row {
+      margin: 1% 0%;
+}
+
+#kernel-vis * .block {
+      margin: 0% 1%;
+}
+
+#kernel-vis * {
+      display: inline-block;
+}
