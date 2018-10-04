@@ -1,21 +1,3 @@
-const input_canvas = $("canvas#input")[0];
-const output_canvas = $("canvas#output")[0];
-// Default canvas width
-var canvas_width = 64;
-// Default canvas height
-var canvas_height = 64;
-// Set width of input canvas
-input_canvas.width = canvas_width;
-// Set height of input canvas
-input_canvas.height = canvas_height;
-// Set width of output canvas
-output_canvas.width = canvas_width;
-// Set height of output canvas
-output_canvas.height = canvas_height;
-// Get canvas context
-const input_context = input_canvas.getContext("2d");
-const output_context = output_canvas.getContext("2d");
-
 // URL of currently loaded image
 var image_url;
 // Current filter kernel to apply to image
@@ -34,7 +16,7 @@ const input_resolution = function(func) {
       load_image(image_url, func);
 }
 
-// Sample images to load by default when the program is opened
+// Sample images to load by default when the program is opened (flowers)
 var images = [
       "https://i.imgur.com/svViHqm.jpg",
       "https://i.imgur.com/uAhjMNd.jpg",
@@ -87,8 +69,9 @@ const read_file = function() {
       reader.onloadend = function() {
             // Display image upload confirmation snackbar message
             display_snackbar("Image uploaded: " + file.name);
+            image_url = reader.result;
             // Load image to canvas and apply convolutional filter
-            load_image(reader.result, () => set_filter(1));
+            load_image(image_url, () => set_filter(1));
       }
 
       // Check if a file has been uploaded
