@@ -28,8 +28,12 @@
             Load image from URL
       </button>
 
-      <canvas id="input"></canvas>
-      <canvas id="output"></canvas>
+      <input class="mdl-slider mdl-js-slider" type="range" min="0" max="200" value="50" tabindex="0" onchange="input_resolution(() => set_filter());" id="resolution">
+
+      <div>
+            <canvas id="input"></canvas>
+            <canvas id="output"></canvas>
+      </div>
 
       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="select-filter">
             No filter applied <i class="material-icons">arrow_drop_down</i>

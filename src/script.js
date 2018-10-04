@@ -1,13 +1,26 @@
 const input_canvas = $("canvas#input")[0];
 const output_canvas = $("canvas#output")[0];
-const canvas_width = Math.round(window.innerWidth / 4);
-const canvas_height = Math.round(window.innerHeight / 4);
+var canvas_width = 64;
+var canvas_height = 64;
 input_canvas.width = canvas_width;
 input_canvas.height = canvas_height;
 output_canvas.width = canvas_width;
 output_canvas.height = canvas_height;
 const input_context = input_canvas.getContext("2d");
 const output_context = output_canvas.getContext("2d");
+
+var image_url;
+var filter = 1;
+const input_resolution = function(func) {
+      var resolution = $("input#resolution")[0].value;
+      canvas_width = resolution;
+      canvas_height = resolution;
+      input_canvas.width = canvas_width;
+      input_canvas.height = canvas_height;
+      output_canvas.width = canvas_width;
+      output_canvas.height = canvas_height;
+      load_image(image_url, func);
+}
 
 // Sample images to load by default when the program is opened
 var images = [
@@ -29,7 +42,7 @@ const find_anchor = function(kernel) {
 var saved_canvas;
 var undo = function(event) {
       input_context.putImageData(saved_canvas, 0, 0);
-      set_filter(1);
+      set_filter();
 };
 const display_snackbar = function(message) {
       var data = {
@@ -42,8 +55,8 @@ const display_snackbar = function(message) {
       snackbarContainer[0].MaterialSnackbar.showSnackbar(data);
 }
 $("dialog#load-image-url .confirm").click(() => {
-      var url = $("dialog#load-image-url input")[0].value;
-      load_image(url);
+      image_url = $("dialog#load-image-url input")[0].value;
+      load_image(image_url);
       display_snackbar("Image loaded.");
 });
 
@@ -97,12 +110,15 @@ for (var j = 0; j < kernels.length; j++) {
 }
 // Apply a filter kernel to the currently loadked image and display the result on the canvas
 const set_filter = function(kernel_id) {
+      if (kernel_id != undefined) {
+            filter = kernel_id;
+      }
       // Update filter select dropdown button to display name of current filter
-      $("button#select-filter").html(kernels[kernel_id].name + '<i class="material-icons">arrow_drop_down</i>');
+      $("button#select-filter").html(kernels[filter].name + '<i class="material-icons">arrow_drop_down</i>');
       // Get image data from canvas
       var canvas_data = input_context.getImageData(0, 0, canvas_width, canvas_height);
       // Run convolution operation on image data from canvas with given kernel
-      var processed_data = convolute(canvas_data, kernels[kernel_id]);
+      var processed_data = convolute(canvas_data, kernels[filter]);
       // Draw processed image data to canvas
       output_context.putImageData(processed_data, 0, 0);
 }
@@ -212,6 +228,6 @@ const convolute = function(image, kernel) {
 }
 
 // Select a random image from the list of demo images
-var image = images[Math.floor(Math.random() * images.length)];
+image_url = images[Math.floor(Math.random() * images.length)];
 // Load random image and apply convolutional filter
-load_image(image, () => set_filter(1));
+load_image(image_url, () => set_filter());
