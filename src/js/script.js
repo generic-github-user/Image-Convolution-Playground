@@ -1,5 +1,5 @@
 // URL of currently loaded image
-var image_url;
+var image_url = "";
 // Current filter kernel to apply to image
 // Default filter is 1 (sharpen)
 var filter = 1;
@@ -13,7 +13,9 @@ const input_resolution = function(func) {
       input_canvas.height = canvas_height;
       output_canvas.width = canvas_width;
       output_canvas.height = canvas_height;
-      load_image(image_url, func);
+      load_image({
+            callback: func
+      });
 }
 
 // Sample images to load by default when the program is opened (flowers)
@@ -33,13 +35,15 @@ const find_anchor = function(kernel) {
       return anchor;
 }
 
-var saved_canvas;
+var saved_url;
 // Undo function for snackbar action button
 var undo = function(event) {
       // Replace stored image onto canvas
-      input_context.putImageData(saved_canvas, 0, 0);
-      // Apply current filter to image
-      set_filter();
+      load_image({
+            url: saved_url,
+            // Apply current filter to image
+            callback: set_filter
+      });
 };
 // Display a snackbar notification given a message string
 const display_snackbar = function(message) {
@@ -53,8 +57,10 @@ const display_snackbar = function(message) {
       snackbarContainer[0].MaterialSnackbar.showSnackbar(data);
 }
 $("dialog#load-image-url .confirm").click(() => {
-      image_url = $("dialog#load-image-url input")[0].value;
-      load_image(image_url);
+      load_image({
+            url: $("dialog#load-image-url input")[0].value,
+            callback: set_filter
+      });
       display_snackbar("Image loaded.");
 });
 
@@ -69,9 +75,11 @@ const read_file = function() {
       reader.onloadend = function() {
             // Display image upload confirmation snackbar message
             display_snackbar("Image uploaded: " + file.name);
-            image_url = reader.result;
             // Load image to canvas and apply convolutional filter
-            load_image(image_url, () => set_filter(1));
+            load_image({
+                  url: reader.result,
+                  callback: set_filter
+            });
       }
 
       // Check if a file has been uploaded
@@ -126,9 +134,14 @@ const set_filter = function(kernel_id) {
 }
 
 // Load an image into memory using a URL and draw it to the canvas
-const load_image = function(url, callback) {
-      // Store canvas data in saved_canvas in case the user undoes the image load operation
-      saved_canvas = input_context.getImageData(0, 0, canvas_width, canvas_height);
+const load_image = function(config) {
+      // Store image URL in saved_url in case the user undoes the image load operation
+      saved_url = image_url;
+      if (config) {
+            if (config.url) {
+                  image_url = config.url;
+            }
+      }
       // Create a new image object
       var image = new Image();
       // Set onload function for image to execute once the image has loaded
@@ -136,12 +149,16 @@ const load_image = function(url, callback) {
             // Draw image to canvas
             input_context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas_width, canvas_height);
             // Execute callback function
-            callback();
+            if (config) {
+                  if (config.callback) {
+                        config.callback();
+                  }
+            }
       };
       // Set crossOrigin property of image object to "Anonymous" to allow loading images from other domains (when permitted)
       image.crossOrigin = "Anonymous";
       // Set image source to url
-      image.src = url;
+      image.src = image_url;
 }
 
 var canvas_data;
@@ -230,7 +247,9 @@ const convolute = function(image, kernel) {
       return processed_data;
 }
 
-// Select a random image from the list of demo images
-image_url = images[Math.floor(Math.random() * images.length)];
 // Load random image and apply convolutional filter
-load_image(image_url, () => set_filter());
+load_image({
+      // Select a random image from the list of demo images
+      url: random_image = images[Math.floor(Math.random() * images.length)],
+      callback: set_filter
+});
