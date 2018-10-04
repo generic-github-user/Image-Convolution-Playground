@@ -44,12 +44,13 @@ var undo = function(event) {
             // Apply current filter to image
             callback: set_filter
       });
+      display_snackbar("Action undone.", 2.5);
 };
 // Display a snackbar notification given a message string
-const display_snackbar = function(message) {
+const display_snackbar = function(message, time) {
       var data = {
             "message": message,
-            "timeout": 5000,
+            "timeout": (time * 1000),
             "actionHandler": undo,
             "actionText": "Undo"
       };
@@ -61,7 +62,7 @@ $("dialog#load-image-url .confirm").click(() => {
             url: $("dialog#load-image-url input")[0].value,
             callback: set_filter
       });
-      display_snackbar("Image loaded.");
+      display_snackbar("Image loaded.", 5);
 });
 
 // Adapted from https://stackoverflow.com/a/22369599
