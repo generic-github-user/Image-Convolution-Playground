@@ -154,7 +154,7 @@ const set_filter = function(kernel_id) {
                   var min = Math.min.apply(null, maxRow);
 
                   var saturation = map(weight, min, max, 25, 75);
-                  var color = "hsla(100, 100%, " + saturation + "%, 1)";
+                  var color = "hsla(200, 100%, " + saturation + "%, 1)";
                   block.css("background-color", color);
                   block.addClass("block mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored");
                   row.append(block);
