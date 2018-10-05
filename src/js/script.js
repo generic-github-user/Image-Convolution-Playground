@@ -10,8 +10,10 @@ function map(num, in_min, in_max, out_min, out_max) {
 }
 
 // Change resolution of images
-const input_resolution = function(func) {
+const set_resolution = function(func) {
       var resolution = $("input#resolution")[0].value;
+      $("p#resolution").text("Resolution - " + resolution + " pixels");
+
       canvas_width = resolution;
       canvas_height = resolution;
       input_canvas.width = canvas_width;
@@ -289,6 +291,7 @@ const convolute = function(image, kernel) {
       return processed_data;
 }
 
+set_resolution(set_filter);
 // Load random image and apply convolutional filter
 load_image({
       // Select a random image from the list of demo images

@@ -32,7 +32,8 @@
                         Load image from URL
                   </button>
 
-                  <input class="mdl-slider mdl-js-slider" type="range" min="8" max="200" value="50" tabindex="0" onchange="input_resolution(() => set_filter());" id="resolution">
+                  <input class="mdl-slider mdl-js-slider" type="range" min="8" max="200" value="50" tabindex="0" onchange="set_resolution(set_filter);" id="resolution">
+                  <p style="margin-left: 25px;" id="resolution">Resolution</p>
 
                   <div class="inline-block">
                         <div id="kernel-vis">
