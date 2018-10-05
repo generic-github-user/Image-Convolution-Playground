@@ -10,6 +10,7 @@ canvas {
       /* min-width: 25%;
       max-width: 49%; */
       width: 49%;
+      image-rendering: pixelated;
 }
 
 dialog {
@@ -28,6 +29,10 @@ input#load-image-upload {
 
 #settings>* {
       margin-bottom: 4%;
+}
+
+.inline-block * {
+      display: inline-block;
 }
 
 #canvases {

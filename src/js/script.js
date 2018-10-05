@@ -163,6 +163,7 @@ const set_filter = function(kernel_id) {
             }
             $("#kernel-vis").append(row);
       }
+      componentHandler.upgradeDom()
 
       // Update filter select dropdown button to display name of current filter
       $("button#select-filter").html(kernels[filter].name + '<i class="material-icons">arrow_drop_down</i>');
