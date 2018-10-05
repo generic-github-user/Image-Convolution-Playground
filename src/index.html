@@ -44,6 +44,14 @@
                                     No filter applied <i class="material-icons">arrow_drop_down</i>
                               </button>
                               <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" id="kernels" for="select-filter"></ul>
+
+                              <br />
+
+                              <div class="mdl-textfield mdl-js-textfield">
+                                    <input oninput="set_filter();" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="repeat-filter">
+                                    <label class="mdl-textfield__label" for="repeat-filter">Repeat filter</label>
+                                    <span class="mdl-textfield__error">Input is not a number!</span>
+                              </div>
                         </div>
                   </div>
             </div>

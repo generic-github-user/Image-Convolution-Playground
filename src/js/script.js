@@ -3,6 +3,7 @@ var image_url = "";
 // Current filter kernel to apply to image
 // Default filter is 1 (sharpen)
 var filter = 1;
+var iterations = 1;
 
 // https://stackoverflow.com/a/23202637
 function map(num, in_min, in_max, out_min, out_max) {
@@ -132,6 +133,17 @@ const set_filter = function(kernel_id) {
             // If a filter was not provided, use the currently set kernel
       }
 
+      var iterations_field = $("input#repeat-filter")[0];
+      if (iterations_field.value == undefined || iterations_field.value == "") {
+            iterations = 1;
+      } else if (parseInt(iterations_field.value) < 1 || parseInt(iterations_field.value) > 100) {
+            iterations_field.value = 1;
+            console.log(true)
+            iterations = parseInt(iterations_field.value);
+      } else {
+            iterations = parseInt(iterations_field.value);
+      }
+
       $("#kernel-vis").empty();
       for (var k = 0; k < kernels[filter].kernel.length; k++) {
             var row = $("<div></div>");
@@ -172,7 +184,10 @@ const set_filter = function(kernel_id) {
       // Get image data from canvas
       var canvas_data = input_context.getImageData(0, 0, canvas_width, canvas_height);
       // Run convolution operation on image data from canvas with given kernel
-      var processed_data = convolute(canvas_data, kernels[filter]);
+      var processed_data = canvas_data;
+      for (var o = 0; o < iterations; o++) {
+            processed_data = convolute(processed_data, kernels[filter]);
+      }
       // Draw processed image data to canvas
       output_context.putImageData(processed_data, 0, 0);
 }
