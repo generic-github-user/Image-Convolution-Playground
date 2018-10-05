@@ -4,6 +4,7 @@ var image_url = "";
 // Default filter is 1 (sharpen)
 var filter = 1;
 
+// https://stackoverflow.com/a/23202637
 function map(num, in_min, in_max, out_min, out_max) {
       return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
@@ -143,6 +144,7 @@ const set_filter = function(kernel_id) {
                   block.css("min-width", Math.round((100 / kernels[filter].kernel[k].length) - 2) + "%");
                   block.css("height", "100%");
 
+                  // https://stackoverflow.com/a/39342975
                   var maxRow = kernel.map(function(row) {
                         return Math.max.apply(Math, row);
                   });
