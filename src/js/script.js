@@ -4,10 +4,18 @@ var image_url = "";
 // Default filter is 1 (sharpen)
 var filter = 1;
 var iterations = 1;
+var automatic_update = true;
 
 // https://stackoverflow.com/a/23202637
 function map(num, in_min, in_max, out_min, out_max) {
       return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+const update_settings = function() {
+      automatic_update = $("input#automatic-update")[0].checked;
+      if (automatic_update) {
+            set_filter();
+      }
 }
 
 // Change resolution of images
@@ -138,7 +146,6 @@ const set_filter = function(kernel_id) {
             iterations = 1;
       } else if (parseInt(iterations_field.value) < 1 || parseInt(iterations_field.value) > 100) {
             iterations_field.value = 1;
-            console.log(true)
             iterations = parseInt(iterations_field.value);
       } else {
             iterations = parseInt(iterations_field.value);
@@ -177,10 +184,24 @@ const set_filter = function(kernel_id) {
             }
             $("#kernel-vis").append(row);
       }
-      componentHandler.upgradeDom()
 
       // Update filter select dropdown button to display name of current filter
       $("button#select-filter").html(kernels[filter].name + '<i class="material-icons">arrow_drop_down</i>');
+
+      var button_text = "Apply " + kernels[filter].name;
+      if (iterations > 1) {
+            button_text += " " + iterations + " times";
+      }
+      $("button#apply-filter").text(button_text);
+
+      componentHandler.upgradeDom();
+
+      if (automatic_update) {
+            apply_filter();
+      }
+}
+
+const apply_filter = function() {
       // Get image data from canvas
       var canvas_data = input_context.getImageData(0, 0, canvas_width, canvas_height);
       // Run convolution operation on image data from canvas with given kernel
