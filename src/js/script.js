@@ -145,6 +145,7 @@ const set_filter = function(kernel_id) {
       if (iterations_field.value == undefined || iterations_field.value == "") {
             iterations = 1;
       } else if (parseInt(iterations_field.value) < 1 || parseInt(iterations_field.value) > 100) {
+            //  || /-?[0-9]*(\.[0-9]+)?/.test(iterations_field.value) == false
             iterations_field.value = 1;
             iterations = parseInt(iterations_field.value);
       } else {

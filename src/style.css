@@ -2,12 +2,36 @@
       box-sizing: border-box;
 }
 
+#load-image-upload-button, #load-image-url {
+      width: 49%;
+}
+
+button {
+      user-select: none;
+}
+
 .mdl-slider__container {
       margin: 0 !important;
 }
 
 header {
-      padding: 0% 2%;
+      height: 10%;
+      padding: 1% 2%;
+      background-color: #EEE;
+      box-shadow: 2px 2px 1px #AAA;
+      transition: all 1s ease;
+}
+
+header:hover {
+      padding: 1% 4%;
+      background-color: #FFF;
+      box-shadow: 2px 2px 2px #CCC;
+      transition: all 1s ease;
+}
+
+header h1 {
+      margin-top: 0;
+      text-shadow: 2px 2px 1px #AAA;
 }
 
 .full-width {
@@ -15,10 +39,15 @@ header {
 }
 
 canvas {
-      /* min-width: 25%;
-      max-width: 49%; */
       width: 49%;
       image-rendering: pixelated;
+      box-shadow: 4px 4px 4px #AAA;
+      transition: 1s all ease;
+}
+
+canvas:hover {
+      box-shadow: 8px 8px 12px #CCC;
+      transition: 1s all ease;
 }
 
 dialog {
