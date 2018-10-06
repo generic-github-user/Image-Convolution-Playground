@@ -151,49 +151,62 @@ const set_filter = function(kernel_id) {
             iterations = parseInt(iterations_field.value);
       }
 
+      // Display filter kernel visualization
+      // Clear HTML of visualization <div>
       $("#kernel-vis").empty();
       for (var k = 0; k < kernels[filter].kernel.length; k++) {
+            // Create row div element
             var row = $("<div></div>");
+            // Add row css class to row element
             row.addClass("row");
-            row.css("width", "100%");
             row.css("height", Math.round((100 / kernels[filter].kernel.length) - 2) + "%");
             for (var l = 0; l < kernels[filter].kernel[k].length; l++) {
+                  // Abbreviations
                   var kernel = kernels[filter].kernel;
                   var weight = kernel[k][l];
 
                   var block = $("<button>" + weight + "</button>");
                   block.css("min-width", Math.round((100 / kernels[filter].kernel[k].length) - 2) + "%");
-                  block.css("height", "100%");
 
+                  // Get maximum weight value of filter kernel
                   // https://stackoverflow.com/a/39342975
                   var maxRow = kernel.map(function(row) {
                         return Math.max.apply(Math, row);
                   });
                   var max = Math.max.apply(null, maxRow);
 
+                  // Get minimum weight value
                   var minRow = kernel.map(function(row) {
                         return Math.min.apply(Math, row);
                   });
                   var min = Math.min.apply(null, maxRow);
 
+                  // Map filter kernel weight range to color saturation range
                   var saturation = map(weight, min, max, 25, 75);
+                  // Create color string in hsla format
                   var color = "hsla(200, 100%, " + saturation + "%, 1)";
+                  // Set background color of block
                   block.css("background-color", color);
+                  // Add relevant css classes to block
                   block.addClass("block mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored");
+                  // Add block to row
                   row.append(block);
             }
+            // Add row element to visualization div element
             $("#kernel-vis").append(row);
       }
 
       // Update filter select dropdown button to display name of current filter
       $("button#select-filter").html(kernels[filter].name + '<i class="material-icons">arrow_drop_down</i>');
 
+      // Update "apply filter" button to reflect currently selected filter kernel and filter repetitions
       var button_text = "Apply " + kernels[filter].name;
       if (iterations > 1) {
             button_text += " " + iterations + " times";
       }
       $("button#apply-filter").text(button_text);
 
+      // Update all MDL components in DOM
       componentHandler.upgradeDom();
 
       if (automatic_update) {
@@ -201,6 +214,7 @@ const set_filter = function(kernel_id) {
       }
 }
 
+// Apply convolutional filter to image and display image on output canvas
 const apply_filter = function() {
       // Get image data from canvas
       var canvas_data = input_context.getImageData(0, 0, canvas_width, canvas_height);
@@ -335,6 +349,7 @@ load_image({
       callback: set_filter
 });
 
+// https://stackoverflow.com/a/5445536
 var cw = $('#kernel-vis').width();
 $('#kernel-vis').css({
       'height': cw + 'px'

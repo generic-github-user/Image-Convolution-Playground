@@ -52,10 +52,12 @@ input#load-image-upload {
 }
 
 #kernel-vis .row {
+      width: 100%;
       margin: 1% 0%;
 }
 
 #kernel-vis * .block {
+      height: 100%;
       margin: 0% 1%;
       padding: 0;
 }
