@@ -18,6 +18,10 @@ const update_settings = function() {
       }
 }
 
+const round = function(number, precision) {
+      return Math.round(number * (10 ** precision)) / (10 ** precision)
+}
+
 const clone = function(object) {
       return JSON.parse(JSON.stringify(object));
 }
@@ -30,7 +34,7 @@ const randomize = function() {
       filter = kernels.findIndex(x => x.name == "Custom");
       for (var p = 0; p < kernels[filter].kernel.length; p++) {
             for (var q = 0; q < kernels[filter].kernel[p].length; q++) {
-                  kernels[filter].kernel[p][q] = Math.round(Math.random() * 4 - 2);
+                  kernels[filter].kernel[p][q] = round(Math.random() * 6 - 3, 1);
             }
       }
       set_filter();
