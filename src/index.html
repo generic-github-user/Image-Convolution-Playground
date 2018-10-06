@@ -69,12 +69,12 @@
                                     <span class="mdl-textfield__error">Input is not a number</span>
                               </div>
 
-                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="automatic-update">
-                                    <input type="checkbox" oninput="update_settings();" id="automatic-update" class="mdl-switch__input" checked>
                               <!-- Automatic filter update toggle -->
+                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" id="automatic-update-label" for="automatic-update">
+                                    <input type="checkbox" oninput="update_settings();" id="automatic-update" class="mdl-switch__input" checked></input>
                                     <span class="mdl-switch__label">Automatically update</span>
                               </label>
-                              <div class="mdl-tooltip" data-mdl-for="automatic-update">
+                              <div class="mdl-tooltip" data-mdl-for="automatic-update-label">
                                     Update convolutional filter whenever a setting is changed.
                               </div>
                         </div>
