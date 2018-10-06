@@ -18,6 +18,24 @@ const update_settings = function() {
       }
 }
 
+const clone = function(object) {
+      return JSON.parse(JSON.stringify(object));
+}
+
+const find_kernel = function(kernel_name) {
+      return kernels.find(x => x.name == kernel_name);
+}
+
+const randomize = function() {
+      filter = kernels.findIndex(x => x.name == "Custom");
+      for (var p = 0; p < kernels[filter].kernel.length; p++) {
+            for (var q = 0; q < kernels[filter].kernel[p].length; q++) {
+                  kernels[filter].kernel[p][q] = Math.round(Math.random() * 4 - 2);
+            }
+      }
+      set_filter();
+}
+
 // Change resolution of images
 const set_resolution = function(func) {
       var resolution = $("input#resolution")[0].value;

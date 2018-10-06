@@ -56,7 +56,7 @@
 
                         <!-- Right settings panel -->
                         <div style="width: 49%; padding-left: 1%;">
-                              <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="select-filter">
+                              <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="select-filter">
                                     No filter applied <i class="material-icons">arrow_drop_down</i>
                               </button>
                               <div class="mdl-tooltip" data-mdl-for="select-filter">
@@ -73,6 +73,16 @@
                               </button>
                               <div class="mdl-tooltip" data-mdl-for="apply-filter">
                                     Apply filter to image.
+                              </div>
+
+                              <br />
+                              <br />
+
+                              <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="randomize();" id="randomize-filter">
+                                    Randomize
+                              </button>
+                              <div class="mdl-tooltip" data-mdl-for="randomize-filter">
+                                    Randomize weights of filter kernel.
                               </div>
 
                               <br />
