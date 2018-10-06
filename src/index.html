@@ -27,16 +27,25 @@
             <div id="settings">
                   <!-- Image upload button -->
                   <input type="file" onchange="read_file();" id="load-image-upload">
-                  <label for="load-image-upload" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="load-image-upload">
+                  <label for="load-image-upload" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="load-image-upload-button">
                         Upload Image
                   </label>
+                  <div class="mdl-tooltip" data-mdl-for="load-image-upload-button">
+                        Upload an image file in .jpeg, .png, or .gif format.
+                  </div>
 
                   <!-- Image loading from URL -->
                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="load-image-url">
                         Load image from URL
                   </button>
+                  <div class="mdl-tooltip" data-mdl-for="load-image-url">
+                        Enter a URL of an image in .jpeg, .png, or .gif format.
+                  </div>
 
                   <input class="mdl-slider mdl-js-slider" type="range" min="8" max="200" value="50" tabindex="0" onchange="set_resolution(set_filter);" id="resolution">
+                  <div class="mdl-tooltip" data-mdl-for="resolution">
+                        Set resolution of input image.
+                  </div>
                   <p style="margin-left: 25px;" id="resolution">Resolution</p>
 
                   <!-- Settings -->
