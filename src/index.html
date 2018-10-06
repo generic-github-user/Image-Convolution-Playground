@@ -13,6 +13,7 @@
 </head>
 
 <body>
+      <!-- Header -->
       <header>
             <h1>
                   Image Convolution Playground
@@ -24,10 +25,13 @@
 
       <div>
             <div id="settings">
+                  <!-- Image upload button -->
                   <input type="file" onchange="read_file();" id="load-image-upload">
                   <label for="load-image-upload" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="load-image-upload">
                         Upload Image
                   </label>
+
+                  <!-- Image loading from URL -->
                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="load-image-url">
                         Load image from URL
                   </button>
@@ -35,10 +39,13 @@
                   <input class="mdl-slider mdl-js-slider" type="range" min="8" max="200" value="50" tabindex="0" onchange="set_resolution(set_filter);" id="resolution">
                   <p style="margin-left: 25px;" id="resolution">Resolution</p>
 
+                  <!-- Settings -->
                   <div class="inline-block" style="width: 100%;">
+                        <!-- Filter kernel visualization -->
                         <div id="kernel-vis">
                         </div>
 
+                        <!-- Right settings panel -->
                         <div style="width: 49%; padding-left: 1%;">
                               <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="select-filter">
                                     No filter applied <i class="material-icons">arrow_drop_down</i>
@@ -48,20 +55,23 @@
                               <br />
                               <br />
 
+                              <!-- Apply convolutional filter to image (only needed when automatic updating is disabled) -->
                               <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="apply_filter();" id="apply-filter">
                                     Apply filter
                               </button>
 
                               <br />
 
+                              <!-- Filter repeat text field -->
                               <div class="mdl-textfield mdl-js-textfield">
                                     <input oninput="set_filter();" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="repeat-filter">
                                     <label class="mdl-textfield__label" for="repeat-filter">Repeat filter</label>
-                                    <span class="mdl-textfield__error">Input is not a number!</span>
+                                    <span class="mdl-textfield__error">Input is not a number</span>
                               </div>
 
                               <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="automatic-update">
                                     <input type="checkbox" oninput="update_settings();" id="automatic-update" class="mdl-switch__input" checked>
+                              <!-- Automatic filter update toggle -->
                                     <span class="mdl-switch__label">Automatically update</span>
                               </label>
                               <div class="mdl-tooltip" data-mdl-for="automatic-update">
@@ -70,8 +80,11 @@
                         </div>
                   </div>
             </div>
+            <!-- Canvases to display images on -->
             <div id="canvases">
+                  <!-- Unfiltered input image -->
                   <canvas id="input"></canvas>
+                  <!-- Output image with convolutional filter applied -->
                   <canvas id="output"></canvas>
             </div>
       </div>
@@ -104,6 +117,7 @@
             </div>
       </dialog>
 
+      <!-- Load JavaScript -->
       <script defer src="js/jquery-3.3.1.min.js"></script>
       <script defer src="mdl/material.js"></script>
       <script defer src="js/kernels.js"></script>
