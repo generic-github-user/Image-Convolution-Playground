@@ -35,12 +35,12 @@
                   <input class="mdl-slider mdl-js-slider" type="range" min="8" max="200" value="50" tabindex="0" onchange="set_resolution(set_filter);" id="resolution">
                   <p style="margin-left: 25px;" id="resolution">Resolution</p>
 
-                  <div class="inline-block">
+                  <div class="inline-block" style="width: 100%;">
                         <div id="kernel-vis">
                         </div>
 
-                        <div style="position: absolute; padding-left: 1%;">
-                              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="select-filter">
+                        <div style="width: 49%; padding-left: 1%;">
+                              <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="select-filter">
                                     No filter applied <i class="material-icons">arrow_drop_down</i>
                               </button>
                               <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" id="kernels" for="select-filter"></ul>
@@ -48,7 +48,7 @@
                               <br />
                               <br />
 
-                              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="apply_filter();" id="apply-filter">
+                              <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="apply_filter();" id="apply-filter">
                                     Apply filter
                               </button>
 

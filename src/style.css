@@ -10,6 +10,10 @@ header {
       padding: 0% 2%;
 }
 
+.full-width {
+      width: 100%;
+}
+
 canvas {
       /* min-width: 25%;
       max-width: 49%; */
@@ -44,8 +48,7 @@ input#load-image-upload {
 }
 
 #kernel-vis {
-      width: 300px;
-      height: 300px;
+      width: 50%;
 }
 
 #kernel-vis .row {

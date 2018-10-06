@@ -334,3 +334,8 @@ load_image({
       url: random_image = images[Math.floor(Math.random() * images.length)],
       callback: set_filter
 });
+
+var cw = $('#kernel-vis').width();
+$('#kernel-vis').css({
+      'height': cw + 'px'
+});
