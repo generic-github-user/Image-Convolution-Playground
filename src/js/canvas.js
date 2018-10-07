@@ -17,3 +17,5 @@ output_canvas.height = canvas_height;
 const input_context = input_canvas.getContext("2d");
 // Get output canvas context
 const output_context = output_canvas.getContext("2d");
+
+console.log("canvas.js loaded");

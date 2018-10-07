@@ -465,3 +465,5 @@ const resize = function() {
 $(window).resize(resize);
 // Or when page is loaded
 $(window).ready(resize);
+
+console.log("script.js loaded");

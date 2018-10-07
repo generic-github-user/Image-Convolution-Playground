@@ -63,3 +63,5 @@ var kernels = [{
             ]
       }
 ];
+
+console.log("kernels.js loaded");

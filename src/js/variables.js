@@ -13,3 +13,5 @@ var selected_weight = {
       x: undefined,
       y: undefined
 }
+
+console.log("variables.js loaded");
