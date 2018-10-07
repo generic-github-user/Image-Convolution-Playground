@@ -40,6 +40,19 @@ The indicator beneath the resolution slider displays the current image resolutio
 
 By default, the image will be re-filtered whenever the resolution is changed. To disable this, turn off "Automatically update."
 
+#### Repeat Filter
+
+The "Repeat filter" setting allows you to apply the same filter to an image multiple times. Type a number of times to repeat the convolutional filter into the "Repeat filter" text field below the "Randomize" button. This can be set to any value between 1 and 100. The default value for this setting is 1. Keep in mind that the more times the filter is repeated, the longer it will take to process the image.
+
+##### 1 repetition
+![1 filter repetition](docs/settings/repeat-filter/1.PNG)
+
+##### 2 repetitions
+![2 filter repetition](docs/settings/repeat-filter/2.PNG)
+
+##### 3 repetitions
+![3 filter repetition](docs/settings/repeat-filter/3.PNG)
+
 ### To-do
 
 Many features are still planned to make this project even better.
@@ -65,5 +78,5 @@ Sources of convolutional filter kernels used in this demo.
 
 ## Other Notes
 
-Image used for early testing of program:
+ - Image used for early testing of program:
 https://i.imgur.com/vXiaCO3.jpg
