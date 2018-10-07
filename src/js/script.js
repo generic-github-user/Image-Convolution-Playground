@@ -93,6 +93,7 @@ const find_kernel = function(kernel_name) {
 const randomize = function() {
       // Get index of custom kernel
       custom = kernels.findIndex(x => x.name == "Custom");
+      kernels[custom].kernel = clone(kernels[filter].kernel);
       // Loop through rows of the kernel
       for (var p = 0; p < kernels[custom].kernel.length; p++) {
             // Loop through weights in each row of kernel
