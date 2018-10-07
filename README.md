@@ -113,12 +113,12 @@ See the [issues page](https://github.com/generic-github-user/Image-Convolution-P
 Sources of convolutional filter kernels used in this demo.
 
 - https://en.wikipedia.org/wiki/Kernel_(image_processing)
- - Sharpen
- - Box blur
- - Gaussian blur
-   - 3 by 3
-   - 5 by 5
- - Unsharp masking
+  - Sharpen
+  - Box blur
+  - Gaussian blur
+    - 3 by 3
+    - 5 by 5
+  - Unsharp masking
 
 ## Other Notes
 
