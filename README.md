@@ -22,11 +22,11 @@ The slider near the top of the settings area can be used to change the resolutio
 
 Any image resolution from 8 pixels to 200 pixels can be set. This is both the width and the height of the input and output images. New images that are loaded into the program will be resized to fit this resolution.
 
-![8 by 8](docs/settings/resolution/1.png)
+![8 by 8](docs/settings/resolution/1.PNG)
 
-![50 by 50](docs/settings/resolution/2.png)
+![50 by 50](docs/settings/resolution/2.PNG)
 
-![200 by 200](docs/settings/resolution/3.png)
+![200 by 200](docs/settings/resolution/3.PNG)
 
 The indicator beneath the resolution slider displays the current image resolution. Hovering over the text will display a tooltip with the total area of the image in pixels.
 
