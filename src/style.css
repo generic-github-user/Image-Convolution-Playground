@@ -100,3 +100,8 @@ input#load-image-upload {
 #kernel-vis * {
       display: inline-block;
 }
+
+#resolution-display {
+      margin-left: 25px;
+      display: inline-block;
+}

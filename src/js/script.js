@@ -110,6 +110,8 @@ const set_resolution = function(func) {
       var resolution = $("input#resolution")[0].value;
       $("p#resolution-display").text("Resolution - " + resolution + " pixels");
 
+      $("#resolution-tooltip").text("Resolution set to " + resolution + " pixels by " + resolution + " pixels, for a total image area of " + (resolution ** 2) + " square pixels.");
+
       canvas_width = resolution;
       canvas_height = resolution;
       input_canvas.width = canvas_width;
