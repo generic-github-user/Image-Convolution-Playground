@@ -89,6 +89,7 @@ input#load-image-upload {
       height: 100%;
       margin: 0% 1%;
       padding: 0;
+      transition: all 0.5s ease;
 }
 
 #kernel-vis * {

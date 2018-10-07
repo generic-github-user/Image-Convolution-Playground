@@ -2,9 +2,13 @@
 var image_url = "";
 // Current filter kernel to apply to image
 // Default filter is 1 (sharpen)
-var filter = 1;
+var filter;
 var iterations = 1;
 var automatic_update = true;
+var selected_weight = {
+      x: undefined,
+      y: undefined
+}
 
 // https://stackoverflow.com/a/23202637
 function map(num, in_min, in_max, out_min, out_max) {
@@ -18,8 +22,68 @@ const update_settings = function() {
       }
 }
 
+const set_weight = function() {
+      var custom = kernels.findIndex(x => x.name == "Custom");
+      kernels[custom] = clone(kernels[filter]);
+      kernels[custom].name = "Custom";
+
+      var weight = round(parseFloat($("#kernel-weight").val()), 1);
+      if (!isNaN(weight) && weight != undefined) {
+            kernels[custom].kernel[selected_weight.x][selected_weight.y] = weight;
+      }
+      set_filter(custom);
+}
+
+const select_weight = function(x, y, deselect) {
+      var id = selected_weight.x + "-" + selected_weight.y;
+      $("#" + id).css("border-radius", "");
+      $("#kernel-name").text(kernels[filter].name);
+
+      // This seems to be the most efficient way to organize the logic. I spent an hour and a half on a Saturday night playing around with it, and it works, so don't mess it up.
+
+      // Deselect weight
+      if (
+            // Filter kernel weight is reselected; deselect weight
+            (x == selected_weight.x && y == selected_weight.y && deselect != false) ||
+            // No kernel weight has been selected
+            (x == undefined || y == undefined)
+      ) {
+            // Set kernel weight coordinates to undefined
+            selected_weight.x = undefined;
+            selected_weight.y = undefined;
+      } else if (kernels[filter].kernel[x] != undefined) {
+            if (kernels[filter].kernel[x][y] != undefined) {
+                  selected_weight.x = x;
+                  selected_weight.y = y;
+            }
+      } else {
+            selected_weight.x = kernels[filter].anchor.x;
+            selected_weight.y = kernels[filter].anchor.y;
+      }
+
+      // No weight is selected
+      if (selected_weight.x == undefined || selected_weight.y == undefined) {
+            $("#kernel-weight-position").hide();
+            $("#kernel-weight-container").hide();
+            $("#kernel-weight-label").text("Edit Kernel");
+      } else {
+            id = selected_weight.x + "-" + selected_weight.y;
+            $("#" + id).css("border-radius", "25%");
+
+            $("#kernel-weight").val(kernels[filter].kernel[selected_weight.x][selected_weight.y]);
+            $("#kernel-weight-container").addClass("is-dirty");
+
+            $("#kernel-weight-position").show();
+            $("#kernel-weight-container").show();
+            $("#kernel-weight-label").text("Edit Kernel Weights");
+
+            $("#kernel-weight-container.mdl-textfield__label").text("Kernel weight at " + selected_weight.x + ", " + selected_weight.y);
+            $("#kernel-weight-position").text("(" + selected_weight.x + ", " + selected_weight.y + ")");
+      }
+}
+
 const round = function(number, precision) {
-      return Math.round(number * (10 ** precision)) / (10 ** precision)
+      return Math.round(number * (10 ** precision)) / (10 ** precision);
 }
 
 const clone = function(object) {
@@ -31,19 +95,20 @@ const find_kernel = function(kernel_name) {
 }
 
 const randomize = function() {
-      filter = kernels.findIndex(x => x.name == "Custom");
-      for (var p = 0; p < kernels[filter].kernel.length; p++) {
-            for (var q = 0; q < kernels[filter].kernel[p].length; q++) {
-                  kernels[filter].kernel[p][q] = round(Math.random() * 6 - 3, 1);
+      custom = kernels.findIndex(x => x.name == "Custom");
+      for (var p = 0; p < kernels[custom].kernel.length; p++) {
+            for (var q = 0; q < kernels[custom].kernel[p].length; q++) {
+                  kernels[custom].kernel[p][q] = round(Math.random() * 6 - 3, 1);
             }
       }
-      set_filter();
+      kernels[custom].factor = 1;
+      set_filter(custom);
 }
 
 // Change resolution of images
 const set_resolution = function(func) {
       var resolution = $("input#resolution")[0].value;
-      $("p#resolution").text("Resolution - " + resolution + " pixels");
+      $("p#resolution-display").text("Resolution - " + resolution + " pixels");
 
       canvas_width = resolution;
       canvas_height = resolution;
@@ -156,13 +221,6 @@ for (var j = 0; j < kernels.length; j++) {
 }
 // Apply a filter kernel to the currently loadked image and display the result on the canvas
 const set_filter = function(kernel_id) {
-      // Check to see if a filter kernel ID has been provided
-      if (kernel_id != undefined) {
-            // Set the filter to the provided filter kernel ID
-            filter = kernel_id;
-            // If a filter was not provided, use the currently set kernel
-      }
-
       var iterations_field = $("input#repeat-filter")[0];
       if (iterations_field.value == undefined || iterations_field.value == "") {
             iterations = 1;
@@ -172,6 +230,13 @@ const set_filter = function(kernel_id) {
             iterations = parseInt(iterations_field.value);
       } else {
             iterations = parseInt(iterations_field.value);
+      }
+
+      // Check to see if a filter kernel ID has been provided
+      if (kernel_id != undefined) {
+            // Set the filter to the provided filter kernel ID
+            filter = kernel_id;
+            // If a filter was not provided, use the currently set kernel
       }
 
       // Display filter kernel visualization
@@ -190,6 +255,7 @@ const set_filter = function(kernel_id) {
 
                   var block = $("<button>" + weight + "</button>");
                   block.css("min-width", Math.round((100 / kernels[filter].kernel[k].length) - 2) + "%");
+                  block.attr("id", k + "-" + l);
 
                   // Get maximum weight value of filter kernel
                   // https://stackoverflow.com/a/39342975
@@ -212,12 +278,17 @@ const set_filter = function(kernel_id) {
                   block.css("background-color", color);
                   // Add relevant css classes to block
                   block.addClass("block mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored");
+                  block.attr("onclick", "select_weight(" + k + "," + l + ");");
                   // Add block to row
                   row.append(block);
             }
             // Add row element to visualization div element
             $("#kernel-vis").append(row);
       }
+
+      // if (selected_weight.x != undefined && selected_weight.y != undefined) {
+      select_weight(selected_weight.x, selected_weight.y, false);
+      // }
 
       // Update filter select dropdown button to display name of current filter
       $("button#select-filter").html(kernels[filter].name + '<i class="material-icons">arrow_drop_down</i>');
@@ -369,11 +440,16 @@ set_resolution(set_filter);
 load_image({
       // Select a random image from the list of demo images
       url: random_image = images[Math.floor(Math.random() * images.length)],
-      callback: set_filter
+      callback: () => set_filter(1)
 });
 
-// https://stackoverflow.com/a/5445536
-var cw = $('#kernel-vis').width();
-$('#kernel-vis').css({
-      'height': cw + 'px'
-});
+const resize = function() {
+      // https://stackoverflow.com/a/5445536
+      var cw = $('#kernel-vis').width();
+      $('#kernel-vis').css({
+            'height': cw + 'px'
+      });
+}
+
+$(window).resize(resize);
+$(window).ready(resize);

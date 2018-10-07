@@ -46,64 +46,85 @@
                   <div class="mdl-tooltip" data-mdl-for="resolution">
                         Set resolution of input image.
                   </div>
-                  <p style="margin-left: 25px;" id="resolution">Resolution</p>
+                  <p style="margin-left: 25px;" id="resolution-display">Resolution</p>
+                  <!-- <div class="mdl-tooltip" data-mdl-for="resolution-display">
+                        Current resolution.
+                  </div> -->
 
                   <!-- Settings -->
                   <div class="inline-block" style="width: 100%;">
-                        <!-- Filter kernel visualization -->
-                        <div id="kernel-vis">
+                        <div>
+                              <!-- Filter kernel visualization -->
+                              <div id="kernel-vis">
+                              </div>
+
+                              <!-- Right settings panel -->
+                              <div style="width: 49%; padding-left: 1%;">
+                                    <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="select-filter">
+                                          No filter applied <i class="material-icons">arrow_drop_down</i>
+                                    </button>
+                                    <div class="mdl-tooltip" data-mdl-for="select-filter">
+                                          Select a filter kernel to apply to image.
+                                    </div>
+                                    <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" id="kernels" for="select-filter"></ul>
+
+                                    <br />
+                                    <br />
+
+                                    <!-- Apply convolutional filter to image (only needed when automatic updating is disabled) -->
+                                    <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="apply_filter();" id="apply-filter">
+                                          Apply filter
+                                    </button>
+                                    <div class="mdl-tooltip" data-mdl-for="apply-filter">
+                                          Apply filter to image.
+                                    </div>
+
+                                    <br />
+                                    <br />
+
+                                    <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="randomize();" id="randomize-filter">
+                                          Randomize
+                                    </button>
+                                    <div class="mdl-tooltip" data-mdl-for="randomize-filter">
+                                          Randomize weights of filter kernel.
+                                    </div>
+
+                                    <br />
+
+                                    <!-- Filter repeat text field -->
+                                    <div class="mdl-textfield mdl-js-textfield">
+                                          <input oninput="set_filter();" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="repeat-filter">
+                                          <label class="mdl-textfield__label" for="repeat-filter">Repeat filter</label>
+                                          <span class="mdl-textfield__error">Input is not a number</span>
+                                    </div>
+                                    <div class="mdl-tooltip" data-mdl-for="repeat-filter">
+                                          Repeat convolutional filter on image a specified number of times.
+                                    </div>
+
+                                    <!-- Automatic filter update toggle -->
+                                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" id="automatic-update-label" for="automatic-update">
+                                          <input type="checkbox" oninput="update_settings();" id="automatic-update" class="mdl-switch__input" checked></input>
+                                          <span class="mdl-switch__label">Automatically update</span>
+                                    </label>
+                                    <div class="mdl-tooltip" data-mdl-for="automatic-update-label">
+                                          Update convolutional filter whenever a setting is changed.
+                                    </div>
+                              </div>
                         </div>
-
-                        <!-- Right settings panel -->
-                        <div style="width: 49%; padding-left: 1%;">
-                              <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="select-filter">
-                                    No filter applied <i class="material-icons">arrow_drop_down</i>
-                              </button>
-                              <div class="mdl-tooltip" data-mdl-for="select-filter">
-                                    Select a filter kernel to apply to image.
-                              </div>
-                              <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" id="kernels" for="select-filter"></ul>
-
+                        <div>
+                              <h4 id="kernel-weight-label">Edit Kernel</h4>
                               <br />
+                              <h5 id="kernel-name"></h5>
                               <br />
-
-                              <!-- Apply convolutional filter to image (only needed when automatic updating is disabled) -->
-                              <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="apply_filter();" id="apply-filter">
-                                    Apply filter
-                              </button>
-                              <div class="mdl-tooltip" data-mdl-for="apply-filter">
-                                    Apply filter to image.
-                              </div>
-
+                              <h5 id="kernel-weight-position"></h5>
                               <br />
-                              <br />
-
-                              <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="randomize();" id="randomize-filter">
-                                    Randomize
-                              </button>
-                              <div class="mdl-tooltip" data-mdl-for="randomize-filter">
-                                    Randomize weights of filter kernel.
-                              </div>
-
-                              <br />
-
-                              <!-- Filter repeat text field -->
-                              <div class="mdl-textfield mdl-js-textfield">
-                                    <input oninput="set_filter();" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="repeat-filter">
-                                    <label class="mdl-textfield__label" for="repeat-filter">Repeat filter</label>
+                              <div class="mdl-textfield mdl-js-textfield" id="kernel-weight-container">
+                                    <input oninput="set_weight();" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="kernel-weight">
+                                    <label class="mdl-textfield__label" for="repeat-filter">Kernel weight</label>
                                     <span class="mdl-textfield__error">Input is not a number</span>
                               </div>
                               <div class="mdl-tooltip" data-mdl-for="repeat-filter">
                                     Repeat convolutional filter on image a specified number of times.
-                              </div>
-
-                              <!-- Automatic filter update toggle -->
-                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" id="automatic-update-label" for="automatic-update">
-                                    <input type="checkbox" oninput="update_settings();" id="automatic-update" class="mdl-switch__input" checked></input>
-                                    <span class="mdl-switch__label">Automatically update</span>
-                              </label>
-                              <div class="mdl-tooltip" data-mdl-for="automatic-update-label">
-                                    Update convolutional filter whenever a setting is changed.
                               </div>
                         </div>
                   </div>
