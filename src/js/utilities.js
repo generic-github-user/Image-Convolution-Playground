@@ -1,5 +1,6 @@
 // utilities.js
 
+
 // Round a number, given a precision value
 const round = function(number, precision) {
       return Math.round(number * (10 ** precision)) / (10 ** precision);
