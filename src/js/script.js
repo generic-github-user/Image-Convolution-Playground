@@ -145,12 +145,14 @@ const set_resolution = function(func) {
       // Update resolution tooltip with area of image
       $("#resolution-tooltip").text("Resolution set to " + resolution + " pixels by " + resolution + " pixels, for a total image area of " + (resolution ** 2) + " square pixels.");
 
-      // Set input canvas width and height to resolution
-      input_canvas.width = resolution;
-      input_canvas.height = resolution;
+      canvas_width = resolution;
+      canvas_height = resolution;
+      // Set input canvas width and height
+      input_canvas.width = canvas_width;
+      input_canvas.height = canvas_height;
       // Set output canvas width and height
-      output_canvas.width = resolution;
-      output_canvas.height = resolution;
+      output_canvas.width = canvas_width;
+      output_canvas.height = canvas_height;
       load_image({
             callback: func
       });
