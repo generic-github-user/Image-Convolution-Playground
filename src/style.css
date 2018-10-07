@@ -106,3 +106,11 @@ input#load-image-upload {
       margin-left: 25px;
       display: inline-block;
 }
+
+#github-icon {
+      position: absolute;
+      top: 32px;
+      right: 32px;
+      width: 32px;
+      height: 32px;
+}
