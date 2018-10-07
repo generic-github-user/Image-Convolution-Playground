@@ -12,7 +12,9 @@ Check out [this awesome demo](http://setosa.io/ev/image-kernels/) by [Victor Pow
 
 ## Image Convolution Playground
 
-This is an interactive demo that demonstrates how filter kernels can be used to apply various effects to images. The demo has a number of different settings that can be adjusted to produce different effects
+This is an interactive demo that demonstrates how filter kernels can be used to apply various effects to images. The demo has a number of different settings that can be adjusted to produce different effects.
+
+![Image Convolution Playground](docs/1.PNG)
 
 ### Usage
 
@@ -65,6 +67,20 @@ The "Repeat filter" setting allows you to apply the same filter to an image mult
 
 ##### 3 filter repetitions
 ![3 filter repetitions](docs/settings/repeat-filter/3.PNG)
+
+#### Randomize
+
+The randomize button will save the currently selected filter as a custom filter, then randomize the weights of the filter. This will produce different, potentially interesting effects when applied to the input image.
+
+![Randomize setting](docs/settings/randomize/1.PNG)
+
+Note that many randomly generated filters may not produce meaningful results because sum of the filter kernel weights will be too large or to small. After the weights are randomized, they can be manually edited to achieve a different result.
+
+![Randomize setting](docs/settings/randomize/2.PNG)
+
+![Randomize setting](docs/settings/randomize/3.PNG)
+
+![Randomize setting](docs/settings/randomize/4.PNG)
 
 ### To-do
 
