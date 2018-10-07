@@ -281,6 +281,9 @@ const set_filter = function(kernel_id) {
 
                   // Map filter kernel weight range to color saturation range
                   var saturation = map(weight, min, max, 25, 75);
+                  if (isNaN(saturation)) {
+                        saturation = 50;
+                  }
                   // Create color string in hsla format
                   var color = "hsla(200, 100%, " + saturation + "%, 1)";
                   // Set background color of block
