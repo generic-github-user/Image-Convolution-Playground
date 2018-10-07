@@ -1,3 +1,4 @@
+// Get canvas elements
 const input_canvas = $("canvas#input")[0];
 const output_canvas = $("canvas#output")[0];
 // Default canvas width

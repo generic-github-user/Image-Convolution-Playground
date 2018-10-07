@@ -13,12 +13,6 @@ var selected_weight = {
       y: undefined
 }
 
-// Map number in one range to another range
-// https://stackoverflow.com/a/23202637
-function map(num, in_min, in_max, out_min, out_max) {
-      return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
-
 const update_settings = function() {
       automatic_update = $("input#automatic-update")[0].checked;
       if (automatic_update) {
@@ -100,16 +94,6 @@ const select_weight = function(x, y, deselect) {
             // Display kernel weight coordinates
             $("#kernel-weight-position").text("(" + selected_weight.x + ", " + selected_weight.y + ")");
       }
-}
-
-// Round a number, given a precision value
-const round = function(number, precision) {
-      return Math.round(number * (10 ** precision)) / (10 ** precision);
-}
-
-// Deep clone a JSON object (excluding methods)
-const clone = function(object) {
-      return JSON.parse(JSON.stringify(object));
 }
 
 // Find a kernel given its name
