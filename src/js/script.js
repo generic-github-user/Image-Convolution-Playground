@@ -358,7 +358,6 @@ const load_image = function(config) {
       image.src = image_url;
 }
 
-var canvas_data;
 var dialog = $("dialog#load-image-url")[0];
 $("button#load-image-url").click(() => {
       $("dialog#load-image-url input")[0].value = "";
@@ -397,7 +396,7 @@ const spread = function(image_data, width, height, channels) {
 // Apply convolution operation to image data given image and filter kernel
 const convolute = function(image, kernel) {
       // Convert 1-dimensional canvas pixel data array into a 3-dimensional array using spread()
-      canvas_data = spread(image.data, canvas_width, canvas_height, 4);
+      var canvas_data = spread(image.data, canvas_width, canvas_height, 4);
       // Create a new array, processed_data, as a clone of canvas_data to store output image
       var processed_data = JSON.parse(JSON.stringify(canvas_data));
 
