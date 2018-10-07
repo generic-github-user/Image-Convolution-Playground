@@ -14,6 +14,16 @@ Check out [this awesome demo](http://setosa.io/ev/image-kernels/) by [Victor Pow
 
 This is an interactive demo that demonstrates how filter kernels can be used to apply various effects to images. The demo has a number of different settings that can be adjusted to produce different effects
 
+### Usage
+
+#### The easy way
+
+The project is hosted at https://generic-github-user.github.io/Image-Convolution-Playground/src. Just click on the link and it'll work.
+
+#### The hard way
+
+If you like a challenge, you can run a local clone of the program on your computer. Go to the [GitHub page for Image-Convolution-Playground](https://github.com/generic-github-user/Image-Convolution-Playground) and click on the green "Clone or download" button, then "Download ZIP." Find the .zip file and unzip it. Find the `src` folder - inside it should be a file called `index.html`. Open this in your preferred web browser program, and the demo should load.
+
 ### Settings
 
 #### Filter
