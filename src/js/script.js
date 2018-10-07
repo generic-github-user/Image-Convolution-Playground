@@ -1,3 +1,5 @@
+// script.js
+
 // URL of currently loaded image
 var image_url = "";
 // Current filter kernel to apply to image
@@ -5,11 +7,13 @@ var image_url = "";
 var filter;
 var iterations = 1;
 var automatic_update = true;
+// Coordinates of selected filter kernel weight
 var selected_weight = {
       x: undefined,
       y: undefined
 }
 
+// Map number in one range to another range
 // https://stackoverflow.com/a/23202637
 function map(num, in_min, in_max, out_min, out_max) {
       return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -22,15 +26,21 @@ const update_settings = function() {
       }
 }
 
+// Set weight of filter kernel
 const set_weight = function() {
       var custom = kernels.findIndex(x => x.name == "Custom");
+      // Clone current filter to custom filter
       kernels[custom] = clone(kernels[filter]);
+      // Reset name of filter
       kernels[custom].name = "Custom";
 
       var weight = round(parseFloat($("#kernel-weight").val()), 1);
+      // Check that weight is defined and is a number
       if (!isNaN(weight) && weight != undefined) {
+            // Assign weight to kernel
             kernels[custom].kernel[selected_weight.x][selected_weight.y] = weight;
       }
+      // Apply custom filter to image
       set_filter(custom);
 }
 
@@ -39,6 +49,7 @@ const select_weight = function(x, y, deselect) {
       var id = selected_weight.x + "-" + selected_weight.y;
       // Reset border-radius property of previously selected weight
       $("#" + id).css("border-radius", "");
+      // Display filter name
       $("#kernel-name").text(kernels[filter].name);
 
       // This seems to be the most efficient way to organize the logic. I spent an hour and a half on a Saturday night playing around with it, and it works, so don't mess it up.
@@ -126,17 +137,20 @@ const randomize = function() {
 
 // Change resolution of images
 const set_resolution = function(func) {
+      // Get resolution from slider element
       var resolution = $("input#resolution")[0].value;
-      $("p#resolution-display").text("Resolution - " + resolution + " pixels");
 
+      // Update resolution indicator text
+      $("p#resolution-display").text("Resolution - " + resolution + " pixels");
+      // Update resolution tooltip with area of image
       $("#resolution-tooltip").text("Resolution set to " + resolution + " pixels by " + resolution + " pixels, for a total image area of " + (resolution ** 2) + " square pixels.");
 
-      canvas_width = resolution;
-      canvas_height = resolution;
-      input_canvas.width = canvas_width;
-      input_canvas.height = canvas_height;
-      output_canvas.width = canvas_width;
-      output_canvas.height = canvas_height;
+      // Set input canvas width and height to resolution
+      input_canvas.width = resolution;
+      input_canvas.height = resolution;
+      // Set output canvas width and height
+      output_canvas.width = resolution;
+      output_canvas.height = resolution;
       load_image({
             callback: func
       });
@@ -461,6 +475,7 @@ set_resolution(set_filter);
 load_image({
       // Select a random image from the list of demo images
       url: random_image = images[Math.floor(Math.random() * images.length)],
+      // After loading image, apply sharpen filter
       callback: () => set_filter(1)
 });
 
@@ -472,5 +487,7 @@ const resize = function() {
       });
 }
 
+// Update element dimensions when window is resized
 $(window).resize(resize);
+// Or when page is loaded
 $(window).ready(resize);
