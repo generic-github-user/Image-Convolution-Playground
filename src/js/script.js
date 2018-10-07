@@ -3,6 +3,7 @@
 
 const update_settings = function() {
       automatic_update = $("input#automatic-update")[0].checked;
+      console.log("Automatic update setting updated");
       if (automatic_update) {
             set_filter();
       }
@@ -66,6 +67,7 @@ const select_weight = function(x, y, deselect) {
             $("#kernel-weight-position").hide();
             $("#kernel-weight-container").hide();
             $("#kernel-weight-label").text("Edit Kernel");
+            console.log("Kernel information updated");
       } else {
             id = selected_weight.x + "-" + selected_weight.y;
             $("#" + id).css("border-radius", "25%");
@@ -81,6 +83,7 @@ const select_weight = function(x, y, deselect) {
             $("#kernel-weight-container.mdl-textfield__label").text("Kernel weight at " + selected_weight.x + ", " + selected_weight.y);
             // Display kernel weight coordinates
             $("#kernel-weight-position").text("(" + selected_weight.x + ", " + selected_weight.y + ")");
+            console.log("Kernel weight information updated");
       }
 }
 
@@ -106,6 +109,7 @@ const randomize = function() {
       kernels[custom].factor = 1;
       // Apply custom filter kernel to image
       set_filter(custom);
+      console.log("Kernel weight values randomized", kernels[custom]);
 }
 
 // Change resolution of images
@@ -117,6 +121,7 @@ const set_resolution = function(func) {
       $("p#resolution-display").text("Resolution - " + resolution + " pixels");
       // Update resolution tooltip with area of image
       $("#resolution-tooltip").text("Resolution set to " + resolution + " pixels by " + resolution + " pixels, for a total image area of " + (resolution ** 2) + " square pixels.");
+      console.log("Resolution information updated", $("#resolution-tooltip")[0]);
 
       canvas_width = resolution;
       canvas_height = resolution;
@@ -129,6 +134,7 @@ const set_resolution = function(func) {
       load_image({
             callback: func
       });
+      console.log("Image resolution updated");
 }
 
 // Sample images to load by default when the program is opened (flowers)
@@ -145,6 +151,7 @@ const find_anchor = function(kernel) {
             "x": Math.floor(kernel.kernel[Math.floor(kernel.kernel.length / 2)].length / 2),
             "y": Math.floor(kernel.kernel.length / 2)
       };
+      console.log("Anchor of " + kernel.name + " filter kernel calculated: (" + anchor.x + ", " + anchor.y + ")", anchor);
       return anchor;
 }
 
@@ -158,6 +165,7 @@ var undo = function(event) {
             callback: set_filter
       });
       display_snackbar("Action undone.", 2.5);
+      console.log("Image load undone. Saved URL loaded", saved_url);
 };
 // Display a snackbar notification given a message string
 const display_snackbar = function(message, time) {
@@ -201,6 +209,7 @@ const read_file = function() {
             // Read image data as a data URL
             reader.readAsDataURL(file);
       }
+      console.log("Image file information read", file);
 }
 
 // Prepare filter kernels for use in image convolution operations; fill in missing properties
@@ -360,6 +369,8 @@ const load_image = function(config) {
       image.crossOrigin = "Anonymous";
       // Set image source to url
       image.src = image_url;
+
+      console.log("Image loaded", image_url);
 }
 
 var dialog = $("dialog#load-image-url")[0];
@@ -393,6 +404,7 @@ const spread = function(image_data, width, height, channels) {
                   );
             }
       }
+      console.log("Image data spread", image_data, spread_data);
       // Return 3D image data array
       return spread_data;
 }
@@ -443,6 +455,7 @@ const convolute = function(image, kernel) {
       processed_data = new Uint8ClampedArray(processed_data.flat().flat());
       // Create new ImageData object from processed image data
       processed_data = new ImageData(processed_data, canvas_width, canvas_height);
+      console.log("Image convolution operation complete", processed_data);
       // Return filtered image data as ImageData object
       return processed_data;
 }
@@ -462,6 +475,7 @@ const resize = function() {
       $('#kernel-vis').css({
             'height': cw + 'px'
       });
+      console.log("Elements resized");
 }
 
 // Update element dimensions when window is resized
