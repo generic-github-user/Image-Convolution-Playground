@@ -16,6 +16,14 @@ This is an interactive demo that demonstrates how filter kernels can be used to 
 
 ### Settings
 
+#### Filter
+
+A filter can be set from the blue button in the settings panel. Clicking on the button will display a dropdown menu with every available filter kernel - just select one to apply it to the image. Each filter refers to a different "filter kernel," a specific pattern of weights that are multiplied by the pixels in the image to produce a desired effect.
+
+![Filter selection dropdown menu](docs/settings/filter/1.PNG)
+
+The default filter is "sharpen," which increases the crispness of the image by emphasizing the center pixel and decreasing the value of the adjacent pixels. Six filters are currently available, but many more will be added in the future.
+
 #### Resolution
 
 The slider near the top of the settings area can be used to change the resolution of the input and output images displayed on the right of the screen. A lower resolution will look more pixelated, but can process faster. A higher resolution will produce a more crisp image, but may slow down the program. The "Automatically update" setting can be disabled to reduce slowdown.
