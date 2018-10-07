@@ -82,6 +82,21 @@ Note that many randomly generated filters may not produce meaningful results bec
 
 ![Randomize setting](docs/settings/randomize/4.PNG)
 
+#### Automatically Update
+
+When enabled, automatically update will re-apply the currently selected filter to the set image whenever a setting is changed.
+
+ - Resolution changed
+ - Filter kernel weights changed
+ - Filter factor changed
+ - Different filter is selected
+ - Input image changed
+ - Repeat filter setting is changed
+
+![Automatically update setting](docs/settings/automatically-update/1.PNG)
+
+Automatically update is enabled by default. The "Apply [Filter]" button can be used to manually apply a filter when automatic updating is disabled.
+
 ### To-do
 
 Many features are still planned to make this project even better.
