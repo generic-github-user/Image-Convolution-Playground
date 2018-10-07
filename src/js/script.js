@@ -35,7 +35,9 @@ const set_weight = function() {
 }
 
 const select_weight = function(x, y, deselect) {
+      // Get ID of appropriate weight element in filter kernel visualization
       var id = selected_weight.x + "-" + selected_weight.y;
+      // Reset border-radius property of previously selected weight
       $("#" + id).css("border-radius", "");
       $("#kernel-name").text(kernels[filter].name);
 
@@ -51,18 +53,23 @@ const select_weight = function(x, y, deselect) {
             // Set kernel weight coordinates to undefined
             selected_weight.x = undefined;
             selected_weight.y = undefined;
-      } else if (kernels[filter].kernel[x] != undefined) {
+      }
+      // Check that corresponding weight exists in filter kernel
+      else if (kernels[filter].kernel[x] != undefined) {
             if (kernels[filter].kernel[x][y] != undefined) {
                   selected_weight.x = x;
                   selected_weight.y = y;
             }
-      } else {
+      }
+      // Assign anchor coordinates to selected weight
+      else {
             selected_weight.x = kernels[filter].anchor.x;
             selected_weight.y = kernels[filter].anchor.y;
       }
 
       // No weight is selected
       if (selected_weight.x == undefined || selected_weight.y == undefined) {
+            // Hide kernel weight information when no weight is selected
             $("#kernel-weight-position").hide();
             $("#kernel-weight-container").hide();
             $("#kernel-weight-label").text("Edit Kernel");
@@ -73,35 +80,47 @@ const select_weight = function(x, y, deselect) {
             $("#kernel-weight").val(kernels[filter].kernel[selected_weight.x][selected_weight.y]);
             $("#kernel-weight-container").addClass("is-dirty");
 
+            // Display kernel weight information because a weight is selected
             $("#kernel-weight-position").show();
             $("#kernel-weight-container").show();
             $("#kernel-weight-label").text("Edit Kernel Weights");
 
             $("#kernel-weight-container.mdl-textfield__label").text("Kernel weight at " + selected_weight.x + ", " + selected_weight.y);
+            // Display kernel weight coordinates
             $("#kernel-weight-position").text("(" + selected_weight.x + ", " + selected_weight.y + ")");
       }
 }
 
+// Round a number, given a precision value
 const round = function(number, precision) {
       return Math.round(number * (10 ** precision)) / (10 ** precision);
 }
 
+// Deep clone a JSON object (excluding methods)
 const clone = function(object) {
       return JSON.parse(JSON.stringify(object));
 }
 
+// Find a kernel given its name
 const find_kernel = function(kernel_name) {
       return kernels.find(x => x.name == kernel_name);
 }
 
+// Randomize values of custom kernel
 const randomize = function() {
+      // Get index of custom kernel
       custom = kernels.findIndex(x => x.name == "Custom");
+      // Loop through rows of the kernel
       for (var p = 0; p < kernels[custom].kernel.length; p++) {
+            // Loop through weights in each row of kernel
             for (var q = 0; q < kernels[custom].kernel[p].length; q++) {
+                  // Set weight to a random value between -3 and 3 (not inclusive), rounded to 1 decimal place
                   kernels[custom].kernel[p][q] = round(Math.random() * 6 - 3, 1);
             }
       }
+      // Reset kernel factor to 1
       kernels[custom].factor = 1;
+      // Apply custom filter kernel to image
       set_filter(custom);
 }
 
