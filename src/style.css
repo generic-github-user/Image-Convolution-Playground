@@ -28,15 +28,30 @@ header {
 }
 
 header:hover {
-      padding: 1% 4%;
       background-color: #FFF;
       box-shadow: 2px 2px 2px #CCC;
       transition: all 1s ease;
 }
 
-header h1 {
+header:hover>#title {
+      margin-left: 8%;
+      transition: all 1s ease;
+}
+
+header:hover>#subtitle {
+      margin-left: 10%;
+      transition: all 1s ease;
+}
+
+#title {
       margin-top: 0;
       text-shadow: 2px 2px 1px #AAA;
+      transition: all 1s ease;
+}
+
+#subtitle {
+      text-shadow: 2px 2px 1px #AAA;
+      transition: all 1s ease;
 }
 
 .full-width {
