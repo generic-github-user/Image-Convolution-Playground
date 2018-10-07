@@ -30,10 +30,13 @@ The slider near the top of the settings area can be used to change the resolutio
 
 Any image resolution from 8 pixels to 200 pixels can be set. This is both the width and the height of the input and output images. New images that are loaded into the program will be resized to fit this resolution.
 
+##### 8 by 8
 ![8 by 8](docs/settings/resolution/1.PNG)
 
+##### 50 by 50
 ![50 by 50](docs/settings/resolution/2.PNG)
 
+##### 200 by 200
 ![200 by 200](docs/settings/resolution/3.PNG)
 
 The indicator beneath the resolution slider displays the current image resolution. Hovering over the text will display a tooltip with the total area of the image in pixels.
@@ -44,14 +47,14 @@ By default, the image will be re-filtered whenever the resolution is changed. To
 
 The "Repeat filter" setting allows you to apply the same filter to an image multiple times. Type a number of times to repeat the convolutional filter into the "Repeat filter" text field below the "Randomize" button. This can be set to any value between 1 and 100. The default value for this setting is 1. Keep in mind that the more times the filter is repeated, the longer it will take to process the image.
 
-##### 1 repetition
+##### 1 filter repetition
 ![1 filter repetition](docs/settings/repeat-filter/1.PNG)
 
-##### 2 repetitions
-![2 filter repetition](docs/settings/repeat-filter/2.PNG)
+##### 2 filter repetitions
+![2 filter repetitions](docs/settings/repeat-filter/2.PNG)
 
-##### 3 repetitions
-![3 filter repetition](docs/settings/repeat-filter/3.PNG)
+##### 3 filter repetitions
+![3 filter repetitions](docs/settings/repeat-filter/3.PNG)
 
 ### To-do
 
