@@ -107,7 +107,7 @@ The data for any filter kernel can be exported in JSON string format using the r
 
 Valid filter kernel patterns can be imported using the red up arrow button. The button displays a dialog box with a text box. Filter kernel data can be entered into this text box as a JSON string. Clicking "Import" will add the kernel to the filter kernel list and apply it to the currently loaded image. Filter pattern information can be created using the Filter Kernel Export button.
 
-![Filter kernel export dialog](docs/settings/kernel-import/1.PNG)
+![Filter kernel import dialog](docs/settings/kernel-import/1.PNG)
 
 #### Image Download
 
