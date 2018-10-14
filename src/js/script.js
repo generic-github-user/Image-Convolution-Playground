@@ -198,14 +198,10 @@ $("dialog#load-image-url .confirm").click(
       }
 );
 $("#save-input").click(
-      () => {
-            download_canvas($("canvas#input")[0]);
-      }
+      () => download_canvas($("canvas#input")[0])
 );
 $("#save-output").click(
-      () => {
-            download_canvas($("canvas#output")[0]);
-      }
+      () => download_canvas($("canvas#output")[0])
 );
 
 // Adapted from https://stackoverflow.com/a/22369599
