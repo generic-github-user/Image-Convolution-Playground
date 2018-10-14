@@ -148,6 +148,12 @@ The libraries used for the demo.
  - [Material Design Lite](https://getmdl.io/)
  - [download.js by dandavis](http://danml.com/download.html)
 
+##### Snippets
+
+ - [Read image data from file upload](https://stackoverflow.com/a/22369599)
+ - [Get maximum value from matrix](https://stackoverflow.com/a/39342975)
+ - [Set element's height to be equal to its width](https://stackoverflow.com/a/5445536)
+
 ##### Polyfills
 
  - [Dialog Polyfill](https://github.com/GoogleChrome/dialog-polyfill)
