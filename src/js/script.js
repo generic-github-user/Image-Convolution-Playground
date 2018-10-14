@@ -244,17 +244,22 @@ kernels.forEach(
       }
 );
 
-// Loop through each kernel and add it to the dropdown menu
-for (var j = 0; j < kernels.length; j++) {
-      // Create new list item element
-      var item = $("<li class='mdl-menu__item'></li>");
-      // Set name of list item to match kernel
-      item.text(kernels[j].name);
-      // Set onclick function for list item
-      item.attr("onclick", "set_filter(" + j + ")");
-      // Add list item to dropdown
-      $("ul#kernels").append(item);
+const update_filters = function() {
+      $("ul#kernels").empty();
+      // Loop through each kernel and add it to the dropdown menu
+      for (var j = 0; j < kernels.length; j++) {
+            // Create new list item element
+            var item = $("<li class='mdl-menu__item'></li>");
+            // Set name of list item to match kernel
+            item.text(kernels[j].name);
+            // Set onclick function for list item
+            item.attr("onclick", "set_filter(" + j + ")");
+            // Add list item to dropdown
+            $("ul#kernels").append(item);
+      }
 }
+update_filters();
+
 // Apply a filter kernel to the currently loadked image and display the result on the canvas
 const set_filter = function(kernel_id) {
       var iterations_field = $("input#repeat-filter")[0];
@@ -413,6 +418,21 @@ $("#export-kernel-download-button").click(
             );
       }
 );
+
+var import_kernel_dialog = $("#import-kernel-dialog")[0];
+$("#import-kernel-button").click(() => {
+      $("#import-kernel-field").val("");
+      import_kernel_dialog.showModal();
+});
+$("#import-kernel-dialog .confirm").click(
+      () => {
+            kernels.push(JSON.parse($("#import-kernel-field").val()));
+            set_filter(kernels.length - 1);
+            update_filters();
+            display_snackbar("Filter kernel imported.", 5000);
+      }
+);
+$("#import-kernel-dialog .close").click(() => import_kernel_dialog.close());
 
 // Spread 1D image vector to a 3D array given width, height, and number of color channels
 const spread = function(image_data, width, height, channels) {
