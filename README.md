@@ -97,6 +97,18 @@ When enabled, automatically update will re-apply the currently selected filter t
 
 Automatically update is enabled by default. The "Apply [Filter]" button can be used to manually apply a filter when automatic updating is disabled.
 
+#### Filter Kernel Export
+
+The data for any filter kernel can be exported in JSON string format using the red down arrow button. Clicking this button will display a dialog box with a text box containing the filter kernel information and a red download button. You may copy and paste the kernel data from the text box or click the download button to save the filter kernel information to your computer as a text file. This exported kernel data may be imported later using the filter kernel import button.
+
+![Filter kernel export dialog](docs/settings/kernel-export/1.PNG)
+
+#### Filter Kernel Import
+
+Valid filter kernel patterns can be imported using the red up arrow button. The button displays a dialog box with a text box. Filter kernel data can be entered into this text box as a JSON string. Clicking "Import" will add the kernel to the filter kernel list and apply it to the currently loaded image. Filter pattern information can be created using the Filter Kernel Export button.
+
+![Filter kernel export dialog](docs/settings/kernel-import/1.PNG)
+
 #### Image Download
 
 Both the unprocessed input image and the processed output image can be easily downloaded using the download button beneath each image. Clicking on one of these buttons will download the appropriate image in `.png` format as `image.png` (a suffix will be added for repeated downloads; `image (1).png`). Downloaded images can be re-uploaded through the "Upload Image" button.
