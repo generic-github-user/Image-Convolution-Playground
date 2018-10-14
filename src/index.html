@@ -113,6 +113,16 @@
                               <div class="mdl-tooltip" data-mdl-for="automatic-update-label">
                                     Update convolutional filter whenever a setting is changed.
                               </div>
+
+                              <!-- Filter kernel export button -->
+                              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="export-kernel-button">
+                                    <i class="material-icons">arrow_downward</i>
+                              </button>
+                              <!-- Filter kernel export button tooltip -->
+                              <div class="mdl-tooltip" data-mdl-for="export-kernel-button">
+                                    Export filter kernel
+                              </div>
+
                         </div>
                   </div>
                   <div>
@@ -191,6 +201,36 @@
                   </button>
                   <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect">
                         Cancel
+                  </button>
+            </div>
+      </dialog>
+
+      <dialog class="mdl-dialog" id="export-kernel-dialog">
+            <h4 class="mdl-dialog__title">Export Filter Kernel</h4>
+            <div class="mdl-dialog__content">
+                  <p>
+                        Copy and paste the code below, or press the download button to save a text file with the filter kernel information.
+                  </p>
+
+                  <div class="mdl-textfield mdl-js-textfield" id="export-kernel-field-container">
+                        <textarea class="mdl-textfield__input" type="text" rows="3" id="export-kernel-field"></textarea>
+                        <label class="mdl-textfield__label" for="kernel-export-field">Filter kernel code</label>
+                  </div>
+
+                  <br />
+
+                  <!-- Kernel data download button -->
+                  <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="export-kernel-download-button">
+                        <i class="material-icons">save</i>
+                  </button>
+                  <!-- Kernel data download button tooltip -->
+                  <div class="mdl-tooltip" data-mdl-for="export-kernel-download-button">
+                        Download filter kernel data
+                  </div>
+            </div>
+            <div class="mdl-dialog__actions">
+                  <button type="button" class="close mdl-button mdl-js-button mdl-js-ripple-effect">
+                        Close
                   </button>
             </div>
       </dialog>

@@ -390,12 +390,29 @@ const load_image = function(config) {
       console.log("Image loaded", image_url);
 }
 
-var dialog = $("dialog#load-image-url")[0];
+var load_image_url_dialog = $("dialog#load-image-url")[0];
 $("button#load-image-url").click(() => {
       $("dialog#load-image-url input")[0].value = "";
-      dialog.showModal();
+      load_image_url_dialog.showModal();
 });
-$("dialog#load-image-url button").click(() => dialog.close());
+$("dialog#load-image-url button").click(() => load_image_url_dialog.close());
+
+var export_kernel_dialog = $("#export-kernel-dialog")[0];
+$("#export-kernel-button").click(() => {
+      $("#export-kernel-field").val(JSON.stringify(kernels[filter]));
+      $("#export-kernel-field-container").addClass("is-dirty");
+      export_kernel_dialog.showModal();
+});
+$("#export-kernel-dialog .close").click(() => export_kernel_dialog.close());
+$("#export-kernel-download-button").click(
+      () => {
+            download(
+                  JSON.stringify(kernels[filter]),
+                  (kernels[filter].name + " Kernel.txt"),
+                  "text/plain"
+            );
+      }
+);
 
 // Spread 1D image vector to a 3D array given width, height, and number of color channels
 const spread = function(image_data, width, height, channels) {
