@@ -112,6 +112,11 @@ const randomize = function() {
       console.log("Kernel weight values randomized", kernels[custom]);
 }
 
+const download_canvas = function(canvas) {
+      var data = canvas.toDataURL("image/png");
+      download(data, "image.png", "image/png");
+}
+
 // Change resolution of images
 const set_resolution = function(func) {
       // Get resolution from slider element
@@ -178,13 +183,25 @@ const display_snackbar = function(message, time) {
       var snackbarContainer = $("#snackbar");
       snackbarContainer[0].MaterialSnackbar.showSnackbar(data);
 }
-$("dialog#load-image-url .confirm").click(() => {
-      load_image({
-            url: $("dialog#load-image-url input")[0].value,
-            callback: set_filter
-      });
-      display_snackbar("Image loaded.", 5);
-});
+$("dialog#load-image-url .confirm").click(
+      () => {
+            load_image({
+                  url: $("dialog#load-image-url input")[0].value,
+                  callback: set_filter
+            });
+            display_snackbar("Image loaded.", 5);
+      }
+);
+$("#save-input").click(
+      () => {
+            download_canvas($("canvas#input")[0]);
+      }
+);
+$("#save-output").click(
+      () => {
+            download_canvas($("canvas#output")[0]);
+      }
+);
 
 // Adapted from https://stackoverflow.com/a/22369599
 const read_file = function() {

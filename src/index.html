@@ -128,15 +128,38 @@
             </div>
             <!-- Canvases to display images on -->
             <div id="canvases">
-                  <!-- Unfiltered input image -->
-                  <canvas id="input"></canvas>
-                  <div class="mdl-tooltip" data-mdl-for="input">
-                        Input image
+                  <div id="input-canvas">
+                        <!-- Unfiltered input image -->
+                        <canvas id="input"></canvas>
+                        <div class="mdl-tooltip" data-mdl-for="input">
+                              Input image
+                        </div>
+
+                        <!-- Input image save button -->
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" id="save-input">
+                              <i class="material-icons">save</i>
+                        </button>
+                        <!-- Input image save tooltip -->
+                        <div class="mdl-tooltip" data-mdl-for="save-input">
+                              Download input image
+                        </div>
                   </div>
-                  <!-- Output image with convolutional filter applied -->
-                  <canvas id="output"></canvas>
-                  <div class="mdl-tooltip" data-mdl-for="output">
-                        Output image
+
+                  <div id="output-canvas">
+                        <!-- Output image with convolutional filter applied -->
+                        <canvas id="output"></canvas>
+                        <div class="mdl-tooltip" data-mdl-for="output">
+                              Output image
+                        </div>
+
+                        <!-- Output image save button -->
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" id="save-output">
+                              <i class="material-icons">save</i>
+                        </button>
+                        <!-- Output image save tooltip -->
+                        <div class="mdl-tooltip" data-mdl-for="save-output">
+                              Download output image
+                        </div>
                   </div>
             </div>
       </div>

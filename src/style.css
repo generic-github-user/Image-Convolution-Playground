@@ -59,7 +59,8 @@ header:hover>#subtitle {
 }
 
 canvas {
-      width: 49%;
+      width: 100%;
+      margin-bottom: 5%;
       image-rendering: pixelated;
       box-shadow: 4px 4px 4px #AAA;
       transition: 1s all ease;
@@ -94,6 +95,18 @@ input#load-image-upload {
 
 #canvases {
       position: absolute;
+}
+
+#input-canvas, #output-canvas {
+      width: 50%;
+}
+
+#input-canvas {
+      float: left;
+}
+
+#output-canvas {
+      float: left;
 }
 
 #kernel-vis {
