@@ -11,9 +11,9 @@ $("#export-kernel-dialog .close").click(() => export_kernel_dialog.close());
 $("#export-kernel-download-button").click(
       () => {
             download(
-                  JSON.stringify(kernels[filter]),
-                  (kernels[filter].name + " Kernel.txt"),
-                  "text/plain"
+                  JSON.stringify(kernels[filter], null, "\t"),
+                  (kernels[filter].name + " Kernel.json"),
+                  "application/json"
             );
       }
 );
