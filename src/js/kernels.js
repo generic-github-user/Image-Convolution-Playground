@@ -1,3 +1,6 @@
+// kernels.js
+
+
 var kernels = [{
             "name": "Identity",
             "kernel": [
@@ -63,5 +66,20 @@ var kernels = [{
             ]
       }
 ];
+
+// Prepare filter kernels for use in image convolution operations; fill in missing properties
+kernels.forEach(
+      (kernel) => {
+            // If kernel factor does not exist, set it to 1
+            if (!kernel.factor) {
+                  kernel.factor = 1;
+            }
+
+            // If kernel anchor coordinates are not listed, calculate them
+            if (!kernel.anchor) {
+                  kernel.anchor = find_anchor(kernel);
+            }
+      }
+);
 
 console.log("kernels.js loaded");

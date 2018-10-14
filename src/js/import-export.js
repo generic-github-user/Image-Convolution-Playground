@@ -32,3 +32,5 @@ $("#import-kernel-dialog .confirm").click(
       }
 );
 $("#import-kernel-dialog .close").click(() => import_kernel_dialog.close());
+
+console.log("import-export.js loaded");

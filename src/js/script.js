@@ -225,21 +225,6 @@ const read_file = function() {
       console.log("Image file information read", file);
 }
 
-// Prepare filter kernels for use in image convolution operations; fill in missing properties
-kernels.forEach(
-      (kernel) => {
-            // If kernel factor does not exist, set it to 1
-            if (!kernel.factor) {
-                  kernel.factor = 1;
-            }
-
-            // If kernel anchor coordinates are not listed, calculate them
-            if (!kernel.anchor) {
-                  kernel.anchor = find_anchor(kernel);
-            }
-      }
-);
-
 const update_filters = function() {
       $("ul#kernels").empty();
       // Loop through each kernel and add it to the dropdown menu
