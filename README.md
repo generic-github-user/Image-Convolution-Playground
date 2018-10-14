@@ -97,6 +97,12 @@ When enabled, automatically update will re-apply the currently selected filter t
 
 Automatically update is enabled by default. The "Apply [Filter]" button can be used to manually apply a filter when automatic updating is disabled.
 
+#### Image Download
+
+Both the unprocessed input image and the processed output image can be easily downloaded using the download button beneath each image. Clicking on one of these buttons will download the appropriate image in `.png` format as `image.png` (a suffix will be added for repeated downloads; `image (1).png`). Downloaded images can be re-uploaded through the "Upload Image" button.
+
+![Image download button](docs/settings/download-image/1.PNG)
+
 ### To-do
 
 Many features are still planned to make this project even better.
