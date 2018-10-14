@@ -1,6 +1,11 @@
 // script.js
 
 
+var dialogs = $("dialog");
+for (var p = 0; p < dialogs.length; p++) {
+      dialogPolyfill.registerDialog(dialogs[p]);
+}
+
 const update_settings = function() {
       automatic_update = $("input#automatic-update")[0].checked;
       console.log("Automatic update setting updated");

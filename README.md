@@ -126,13 +126,19 @@ Sources of convolutional filter kernels used in this demo.
     - 5 by 5
   - Unsharp masking
 
-#### Libraries
+#### Code
+
+##### Libraries
 
 The libraries used for the demo.
 
  - [jQuery](https://jquery.com/)
  - [Material Design Lite](https://getmdl.io/)
  - [download.js by dandavis](http://danml.com/download.html)
+
+##### Polyfills
+
+ - [Dialog Polyfill](https://github.com/GoogleChrome/dialog-polyfill)
 
 ## Other Notes
 
