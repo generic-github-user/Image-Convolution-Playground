@@ -67,6 +67,15 @@ var kernels = [{
       }
 ];
 
+const find_anchor = function(kernel) {
+      var anchor = {
+            "x": Math.floor(kernel.kernel[Math.floor(kernel.kernel.length / 2)].length / 2),
+            "y": Math.floor(kernel.kernel.length / 2)
+      };
+      console.log("Anchor of " + kernel.name + " filter kernel calculated: (" + anchor.x + ", " + anchor.y + ")", anchor);
+      return anchor;
+}
+
 // Prepare filter kernels for use in image convolution operations; fill in missing properties
 kernels.forEach(
       (kernel) => {

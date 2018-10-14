@@ -151,15 +151,6 @@ var images = [
       "https://i.imgur.com/EtXIdFP.jpg"
 ];
 
-const find_anchor = function(kernel) {
-      var anchor = {
-            "x": Math.floor(kernel.kernel[Math.floor(kernel.kernel.length / 2)].length / 2),
-            "y": Math.floor(kernel.kernel.length / 2)
-      };
-      console.log("Anchor of " + kernel.name + " filter kernel calculated: (" + anchor.x + ", " + anchor.y + ")", anchor);
-      return anchor;
-}
-
 var saved_url;
 // Undo function for snackbar action button
 var undo = function(event) {
