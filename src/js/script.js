@@ -1,11 +1,6 @@
 // script.js
 
 
-var dialogs = $("dialog");
-for (var p = 0; p < dialogs.length; p++) {
-      dialogPolyfill.registerDialog(dialogs[p]);
-}
-
 const update_settings = function() {
       automatic_update = $("input#automatic-update")[0].checked;
       console.log("Automatic update setting updated");
@@ -259,7 +254,6 @@ const update_filters = function() {
             $("ul#kernels").append(item);
       }
 }
-update_filters();
 
 // Apply a filter kernel to the currently loadked image and display the result on the canvas
 const set_filter = function(kernel_id) {
@@ -483,15 +477,6 @@ const convolute = function(image, kernel) {
       return processed_data;
 }
 
-set_resolution(set_filter);
-// Load random image and apply convolutional filter
-load_image({
-      // Select a random image from the list of demo images
-      url: random_image = images[Math.floor(Math.random() * images.length)],
-      // After loading image, apply sharpen filter
-      callback: () => set_filter(1)
-});
-
 const resize = function() {
       // https://stackoverflow.com/a/5445536
       var cw = $('#kernel-vis').width();
@@ -500,10 +485,5 @@ const resize = function() {
       });
       console.log("Elements resized");
 }
-
-// Update element dimensions when window is resized
-$(window).resize(resize);
-// Or when page is loaded
-$(window).ready(resize);
 
 console.log("script.js loaded");
